@@ -1,5 +1,6 @@
-const showTHis = (str: string) => {
-  console.log("success build!" + str);
-};
+import "./scss/index.scss";
+import controllGeneral from "./controllGeneral";
 
-showTHis("aaa");
+document.addEventListener("DOMContentLoaded", () => {
+  controllGeneral();
+});
