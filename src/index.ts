@@ -12,9 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderer = createRenderer();
   const scene = createScene();
   const light = createLight();
-  scene.add(light);
 
-  const bgBlock = new BGBlock();
-  scene.add(bgBlock);
+  scene.add(light);
+  for (let i = 0; i < 200; i++) {
+    const bgBlock = new BGBlock();
+    scene.add(bgBlock);
+  }
+
   renderer.render(scene, camera);
 });
