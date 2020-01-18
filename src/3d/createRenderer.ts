@@ -4,6 +4,7 @@ const adjustRendererSize = (webGLRenderer: THREE.WebGLRenderer) => {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
+  webGLRenderer.setPixelRatio(window.devicePixelRatio);
   webGLRenderer.setSize(width, height);
 };
 
@@ -13,7 +14,7 @@ export default () => {
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas
   });
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0xffffff);
   adjustRendererSize(renderer);
 
   window.addEventListener("resize", () => {
