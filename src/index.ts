@@ -5,6 +5,7 @@ import createRenderer from "./3d/createRenderer";
 import createScene from "./3d/createScene";
 import BGBlock from "./3d/component/BGBlock";
 import createLight from "./3d/createLight";
+import TimerText from "./3d/component/TimerText";
 
 const bgBlocksTick = (bgBlockList: BGBlock[]) => {
   for (let bgBlock of bgBlockList) {
@@ -32,6 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     bgBlocksList.push(bgBlock);
     scene.add(bgBlock);
   }
+
+  const timerText = new TimerText("03:00");
+  scene.add(timerText);
+  console.log(timerText);
 
   tick();
 });
