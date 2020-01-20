@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(bgBlock);
   }
 
-  const timerText = new TimerText("03:00");
+  const timerText = new TimerText(50, 30);
   scene.add(timerText);
   console.log(timerText);
 
