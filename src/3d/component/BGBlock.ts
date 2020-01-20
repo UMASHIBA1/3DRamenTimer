@@ -9,7 +9,8 @@ class BGBlock extends THREE.Mesh {
     const width = window.innerWidth;
     this.position.x = (Math.random() - 0.5) * width;
     this.position.y = (Math.random() - 0.5) * height;
-    this.position.z = Math.random() * 700;
+    this.position.z =
+      (Math.round(Math.random()) ? 1 : -1) * Math.random() * 700;
     this.rotation.x = Math.random() * 2 * Math.PI;
     this.rotation.y = Math.random() * 2 * Math.PI;
     this.rotation.z = Math.random() * 2 * Math.PI;

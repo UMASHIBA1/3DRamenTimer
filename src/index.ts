@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   scene.add(light);
-  for (let i = 0; i < 150; i++) {
+  for (let i = 0; i < 200; i++) {
     const bgBlock = new BGBlock();
     bgBlocksList.push(bgBlock);
     scene.add(bgBlock);
