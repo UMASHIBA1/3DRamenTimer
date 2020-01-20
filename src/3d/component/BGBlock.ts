@@ -3,7 +3,7 @@ import * as THREE from "three";
 class BGBlock extends THREE.Mesh {
   constructor() {
     const geometry = new THREE.BoxGeometry(20, 20, 20);
-    const material = new THREE.MeshToonMaterial({ color: "#61e363" });
+    const material = new THREE.MeshToonMaterial({ color: "#6DFF6F" });
     super(geometry, material);
     const height = window.innerHeight;
     const width = window.innerWidth;
