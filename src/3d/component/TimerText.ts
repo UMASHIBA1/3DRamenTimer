@@ -9,11 +9,12 @@ class TimerText extends THREE.Mesh {
       size: 20,
       height: 5
     });
-    const material = new THREE.MeshBasicMaterial({ color: "#000000" });
+    const material = new THREE.MeshLambertMaterial();
     super(geometry, material);
-    this.position.x = -35;
+    this.position.x = -34;
     this.position.y = 0;
     this.position.z = 800;
+    this.rotation.x = -Math.PI * 2;
   }
 }
 
