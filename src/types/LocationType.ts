@@ -1,5 +1,6 @@
 interface LocationType {
-  locationY: number;
+  positionY: number;
+  positionZ: number;
   rotationX: number;
 }
 
