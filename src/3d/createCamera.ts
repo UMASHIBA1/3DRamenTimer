@@ -9,7 +9,7 @@ const resizeCameraAspect = (camera: THREE.PerspectiveCamera) => {
 
 export default () => {
   const camera = new THREE.PerspectiveCamera(45);
-  camera.position.set(0, 0, +1000);
+  camera.position.set(0, 0, 1000);
   resizeCameraAspect(camera);
 
   window.addEventListener("resize", () => {
