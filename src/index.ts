@@ -5,7 +5,7 @@ import createRenderer from "./3d/createRenderer";
 import createScene from "./3d/createScene";
 import BGBlock from "./3d/component/BGBlock";
 import createLight from "./3d/createLight";
-import TimerText from "./3d/component/TimerText";
+import Timer from "./3d/system/Timer";
 
 const bgBlocksTick = (bgBlockList: BGBlock[]) => {
   for (let bgBlock of bgBlockList) {
@@ -20,12 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderer = createRenderer();
   const scene = createScene();
   const light = createLight();
+  // let timerText: TimerText;
 
   const tick = () => {
     bgBlocksTick(bgBlocksList);
     renderer.render(scene, camera);
     requestAnimationFrame(tick);
   };
+
+  // const timerTick = () => {
+  //   // requestAnimationFrame(timerTick);
+  //   scene.remove(timerText);
+  //   // timerText = new TimerText();
+  //   scene.add(timerText);
+  //   renderer.render(scene, camera);
+  // };
 
   scene.add(light);
   for (let i = 0; i < 200; i++) {
@@ -34,9 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(bgBlock);
   }
 
-  const timerText = new TimerText(50, 30);
-  scene.add(timerText);
-  console.log(timerText);
+  const timer = new Timer(scene, 59, 0);
+
+  // timerText = new TimerText(50, 30);
+  // scene.add(timerText);
 
   tick();
 });
