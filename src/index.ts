@@ -20,21 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderer = createRenderer();
   const scene = createScene();
   const light = createLight();
-  // let timerText: TimerText;
 
   const tick = () => {
     bgBlocksTick(bgBlocksList);
     renderer.render(scene, camera);
     requestAnimationFrame(tick);
   };
-
-  // const timerTick = () => {
-  //   // requestAnimationFrame(timerTick);
-  //   scene.remove(timerText);
-  //   // timerText = new TimerText();
-  //   scene.add(timerText);
-  //   renderer.render(scene, camera);
-  // };
 
   scene.add(light);
   for (let i = 0; i < 200; i++) {
@@ -43,10 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(bgBlock);
   }
 
-  const timer = new Timer(scene, 59, 0);
-
-  // timerText = new TimerText(50, 30);
-  // scene.add(timerText);
+  const timer = new Timer(scene, 30, 0);
 
   tick();
 });

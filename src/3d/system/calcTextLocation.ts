@@ -1,58 +1,70 @@
 import MinuteSecondType from "../../types/MinuteSecondType";
 import LocationType from "../../types/LocationType";
 
-const _calcPositionY = (
+const circleDiameter = 300;
+
+const _calcIndexFromNowMinuteOrSecond = (
   thisMinuteOrSecond: MinuteSecondType,
   nowMinuteOrSecond: MinuteSecondType
 ) => {
-  const distanceYDiff = 26.6;
-  const minuteOrSecondDiff = thisMinuteOrSecond - nowMinuteOrSecond;
-  console.group();
-  console.log("this", thisMinuteOrSecond);
-  console.log("diff", minuteOrSecondDiff);
-  // 現在時刻30以上
-  if (nowMinuteOrSecond > 30) {
-    // 下側
-    if (minuteOrSecondDiff < -29) {
-      // 前側
-      if (minuteOrSecondDiff < -44) {
-        console.log("対象");
-        return -(minuteOrSecondDiff + 59) * distanceYDiff;
-      }
-      // 奥側
-      else {
-        return (minuteOrSecondDiff + 29) * distanceYDiff;
-      }
-      // 上側
-    } else {
-      // 前側
-      if (minuteOrSecondDiff > -14) {
-        return -minuteOrSecondDiff * distanceYDiff;
-      }
-      // 奥側
-      else {
-        return (minuteOrSecondDiff + 29) * distanceYDiff;
-      }
-    }
+  // もしnowよりthisがでかい=>一回0を通過してる
+  if (thisMinuteOrSecond > nowMinuteOrSecond) {
+    // 0の時のindex
+    const zeroIndex = nowMinuteOrSecond;
+    // 59以降のcount
+    const after59Count = 60 - thisMinuteOrSecond;
+    return zeroIndex + after59Count;
   } else {
+    return nowMinuteOrSecond - thisMinuteOrSecond;
   }
+};
 
-  // if (minuteOrSecondDiff < -15) {
-  //   return (30 + minuteOrSecondDiff) * distanceYDiff;
-  // } else if (minuteOrSecondDiff > 15) {
-  //   return (minuteOrSecondDiff - 30) * distanceYDiff;
-  // }
-  return -minuteOrSecondDiff * distanceYDiff;
+// index30がY0になればよい
+const _calcPositionY = (indexFromNowMinuteOrSecond: number) => {
+  const distanceYDiff = circleDiameter / 15;
+  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 15) {
+    return distanceYDiff * indexFromNowMinuteOrSecond;
+  } else if (
+    15 <= indexFromNowMinuteOrSecond &&
+    indexFromNowMinuteOrSecond < 30
+  ) {
+    return distanceYDiff * Math.abs(indexFromNowMinuteOrSecond - 30);
+  } else if (
+    30 <= indexFromNowMinuteOrSecond &&
+    indexFromNowMinuteOrSecond < 45
+  ) {
+    return -distanceYDiff * (indexFromNowMinuteOrSecond - 30);
+  } else {
+    return distanceYDiff * (indexFromNowMinuteOrSecond - 60);
+  }
+};
+
+// 30の時のzが一番小さいようにする
+const _calcPositionZ = (indexFromNowMinuteOrSecond: number) => {
+  const frontPositionZ = 800;
+  const zDiff = circleDiameter / 15;
+
+  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 30) {
+    return frontPositionZ - zDiff * indexFromNowMinuteOrSecond;
+  } else {
+    return frontPositionZ - zDiff * (60 - indexFromNowMinuteOrSecond);
+  }
 };
 
 const calcTextLocation = (
   thisMinuteOrSecond: MinuteSecondType,
   nowMinuteOrSecond: MinuteSecondType
 ): LocationType => {
-  const defaultPositionZ = 800;
   const minuteOrSecondDiff = thisMinuteOrSecond - nowMinuteOrSecond;
-  const positionY = _calcPositionY(thisMinuteOrSecond, nowMinuteOrSecond);
-  const positionZ = defaultPositionZ - Math.abs(16 * minuteOrSecondDiff);
+  const indexFromNowMinuteOrSecond = _calcIndexFromNowMinuteOrSecond(
+    thisMinuteOrSecond,
+    nowMinuteOrSecond
+  );
+  const positionY = _calcPositionY(indexFromNowMinuteOrSecond);
+  const positionZ = _calcPositionZ(indexFromNowMinuteOrSecond);
+  console.group();
+  console.log("this", thisMinuteOrSecond);
+  console.log("index", indexFromNowMinuteOrSecond);
   console.log("y", positionY);
   console.log("z", positionZ);
   console.groupEnd();
