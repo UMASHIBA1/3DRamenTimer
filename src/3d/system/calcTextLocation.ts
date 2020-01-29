@@ -41,13 +41,23 @@ const _calcPositionY = (indexFromNowMinuteOrSecond: number) => {
 
 // 30の時のzが一番小さいようにする
 const _calcPositionZ = (indexFromNowMinuteOrSecond: number) => {
-  const frontPositionZ = 800;
+  const centerPositionZ = 500;
   const zDiff = circleDiameter / 15;
 
-  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 30) {
-    return frontPositionZ - zDiff * indexFromNowMinuteOrSecond;
+  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 15) {
+    return centerPositionZ + zDiff * Math.abs(indexFromNowMinuteOrSecond - 15);
+  } else if (
+    15 <= indexFromNowMinuteOrSecond &&
+    indexFromNowMinuteOrSecond < 30
+  ) {
+    return centerPositionZ - zDiff * (indexFromNowMinuteOrSecond - 15);
+  } else if (
+    30 <= indexFromNowMinuteOrSecond &&
+    indexFromNowMinuteOrSecond < 45
+  ) {
+    return centerPositionZ - zDiff * Math.abs(indexFromNowMinuteOrSecond - 45);
   } else {
-    return frontPositionZ - zDiff * (60 - indexFromNowMinuteOrSecond);
+    return centerPositionZ + zDiff * Math.abs(indexFromNowMinuteOrSecond - 45);
   }
 };
 
