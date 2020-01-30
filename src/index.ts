@@ -21,12 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const scene = createScene();
   const light = createLight();
 
-  const tick = () => {
-    bgBlocksTick(bgBlocksList);
-    renderer.render(scene, camera);
-    requestAnimationFrame(tick);
-  };
-
   scene.add(light);
   for (let i = 0; i < 200; i++) {
     const bgBlock = new BGBlock();
@@ -34,7 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(bgBlock);
   }
 
-  const timer = new Timer(scene, 30, 0);
+  const timer = new Timer(scene, 30, 30);
+
+  const tick = () => {
+    bgBlocksTick(bgBlocksList);
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+    timer.tick();
+  };
 
   tick();
 });

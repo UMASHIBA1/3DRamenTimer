@@ -6,7 +6,7 @@ const circleDiameter = 500;
 // sin,cosあたり使って円周上の座標を出す
 const _calcIndexFromNowMinuteOrSecond = (
   thisMinuteOrSecond: MinuteSecondType,
-  nowMinuteOrSecond: MinuteSecondType
+  nowMinuteOrSecond: number
 ) => {
   // もしnowよりthisがでかい=>一回0を通過してる
   if (thisMinuteOrSecond > nowMinuteOrSecond) {
@@ -35,7 +35,7 @@ const _calcPositionZ = (indexFromNowMinuteOrSecond: number) => {
 
 const calcTextLocation = (
   thisMinuteOrSecond: MinuteSecondType,
-  nowMinuteOrSecond: MinuteSecondType
+  nowMinuteOrSecond: number
 ): LocationType => {
   const minuteOrSecondDiff = thisMinuteOrSecond - nowMinuteOrSecond;
   const indexFromNowMinuteOrSecond = _calcIndexFromNowMinuteOrSecond(

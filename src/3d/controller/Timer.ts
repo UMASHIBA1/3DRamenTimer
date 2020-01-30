@@ -8,6 +8,8 @@ class Timer {
   private scene: THREE.Scene;
   private nowMinute: MinuteSecondType;
   private nowSecond: MinuteSecondType;
+  private minuteObjs: MinuteColumn[];
+  private secondObjs: SecondColumn[];
   constructor(
     scene: THREE.Scene,
     minute: MinuteSecondType,
@@ -16,6 +18,9 @@ class Timer {
     this.scene = scene;
     this.nowMinute = minute;
     this.nowSecond = second;
+    this.minuteObjs = [];
+    this.secondObjs = [];
+    const performanceNowSecond = performance.now();
     for (let i = 0; i < 60; i++) {
       const minuteText = new MinuteColumn(
         i as MinuteSecondType,
@@ -24,8 +29,11 @@ class Timer {
       const colonText = new ColonText();
       const secondText = new SecondColumn(
         i as MinuteSecondType,
-        this.nowSecond
+        this.nowSecond,
+        performanceNowSecond
       );
+      this.minuteObjs.push(minuteText);
+      this.secondObjs.push(secondText);
       this.scene.add(minuteText);
       this.scene.add(colonText);
       this.scene.add(secondText);
@@ -35,6 +43,13 @@ class Timer {
   upOneSecond() {}
 
   upOneMinute() {}
+
+  public tick() {
+    const nowSecond = performance.now();
+    for (let secondObj of this.secondObjs) {
+      secondObj.tick(nowSecond);
+    }
+  }
 }
 
 export default Timer;
