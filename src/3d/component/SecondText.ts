@@ -4,14 +4,7 @@ import MinuteSecondType from "../../types/MinuteSecondType";
 import calcTextLocation from "../system/calcTextLocation";
 
 class SecondText extends THREE.Mesh {
-  private nowSecond: number;
-  private thisSecond: MinuteSecondType;
-  private previousSecond: number;
-  constructor(
-    thisSecond: MinuteSecondType,
-    nowSecond: MinuteSecondType,
-    performanceNowSecond: number
-  ) {
+  constructor(thisSecond: MinuteSecondType, nowSecond: MinuteSecondType) {
     const font = new THREE.Font(regularFont);
     const strSecond =
       thisSecond.toString().length === 1 ? `0${thisSecond}` : `${thisSecond}`;
@@ -30,32 +23,6 @@ class SecondText extends THREE.Mesh {
     this.position.y = positionY;
     this.position.z = positionZ;
     this.rotation.x = rotationX;
-
-    this.nowSecond = nowSecond;
-    this.thisSecond = thisSecond;
-    this.previousSecond = performanceNowSecond;
-  }
-
-  private _rotateSecondColumn(performanceNowSecond: number) {
-    // 前回のrenderからの経過時間を計算
-    const secDif = (performanceNowSecond - this.previousSecond) / 1000;
-    if (this.nowSecond <= 0) {
-      this.nowSecond = 59.999 - secDif;
-    } else {
-      this.nowSecond -= secDif;
-    }
-    const { positionY, positionZ, rotationX } = calcTextLocation(
-      this.thisSecond,
-      this.nowSecond
-    );
-    this.previousSecond = performanceNowSecond;
-    this.position.y = positionY;
-    this.position.z = positionZ;
-    this.rotation.x = rotationX;
-  }
-
-  public tick(performanceNowSecond: number) {
-    this._rotateSecondColumn(performanceNowSecond);
   }
 }
 

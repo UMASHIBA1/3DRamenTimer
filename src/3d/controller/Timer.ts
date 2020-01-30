@@ -1,15 +1,16 @@
 import * as THREE from "three";
-import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import SecondText from "../component/SecondText";
 import ColonText from "../component/ColonText";
+import MinuteColumn from "./MinuteColumn";
+import SecondColumn from "./SecondColumn";
 
 class Timer {
   private scene: THREE.Scene;
   private nowMinute: MinuteSecondType;
   private nowSecond: MinuteSecondType;
-  private minuteObjs: MinuteText[];
-  private secondObjs: SecondText[];
+  private minuteColumn: MinuteColumn;
+  private secondColumn: SecondColumn;
   constructor(
     scene: THREE.Scene,
     minute: MinuteSecondType,
@@ -18,23 +19,14 @@ class Timer {
     this.scene = scene;
     this.nowMinute = minute;
     this.nowSecond = second;
-    this.minuteObjs = [];
-    this.secondObjs = [];
-    const performanceNowSecond = performance.now();
-    for (let i = 0; i < 60; i++) {
-      const minuteText = new MinuteText(i as MinuteSecondType, this.nowMinute);
-      const colonText = new ColonText();
-      const secondText = new SecondText(
-        i as MinuteSecondType,
-        this.nowSecond,
-        performanceNowSecond
-      );
-      this.minuteObjs.push(minuteText);
-      this.secondObjs.push(secondText);
-      this.scene.add(minuteText);
-      this.scene.add(colonText);
-      this.scene.add(secondText);
-    }
+    const colonText = new ColonText();
+    this.scene.add(colonText);
+    const minuteColumn = new MinuteColumn();
+    minuteColumn.init(this.scene, this.nowMinute);
+    this.minuteColumn = minuteColumn;
+    const secondColumn = new SecondColumn();
+    secondColumn.init(this.scene, this.nowSecond);
+    this.secondColumn = secondColumn;
   }
 
   upOneSecond() {}
@@ -42,10 +34,8 @@ class Timer {
   upOneMinute() {}
 
   public tick() {
-    const nowSecond = performance.now();
-    for (let secondObj of this.secondObjs) {
-      secondObj.tick(nowSecond);
-    }
+    this.minuteColumn.tick();
+    this.secondColumn.tick();
   }
 }
 

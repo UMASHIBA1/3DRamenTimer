@@ -28,7 +28,7 @@ const _calcPositionY = (indexFromNowMinuteOrSecond: number) => {
 
 // 30の時のzが一番小さいようにする
 const _calcPositionZ = (indexFromNowMinuteOrSecond: number) => {
-  const centerPositionZ = 500;
+  const centerPositionZ = 0;
   const radian = (indexFromNowMinuteOrSecond / 30) * Math.PI;
   return centerPositionZ + (Math.cos(radian) * circleDiameter) / 2;
 };
