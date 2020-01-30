@@ -3,7 +3,7 @@ import regularFont from "three/examples/fonts/helvetiker_regular.typeface.json";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import calcTextLocation from "../system/calcTextLocation";
 
-class MinuteColumn extends THREE.Mesh {
+class MinuteText extends THREE.Mesh {
   constructor(minute: MinuteSecondType, nowMinute: MinuteSecondType) {
     const font = new THREE.Font(regularFont);
     const strMinute =
@@ -26,4 +26,4 @@ class MinuteColumn extends THREE.Mesh {
   }
 }
 
-export default MinuteColumn;
+export default MinuteText;

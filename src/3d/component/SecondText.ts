@@ -3,7 +3,7 @@ import regularFont from "three/examples/fonts/helvetiker_regular.typeface.json";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import calcTextLocation from "../system/calcTextLocation";
 
-class SecondColumn extends THREE.Mesh {
+class SecondText extends THREE.Mesh {
   private nowSecond: number;
   private thisSecond: MinuteSecondType;
   private previousSecond: number;
@@ -59,4 +59,4 @@ class SecondColumn extends THREE.Mesh {
   }
 }
 
-export default SecondColumn;
+export default SecondText;

@@ -1,15 +1,15 @@
 import * as THREE from "three";
-import MinuteColumn from "../component/MinuteText";
+import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
-import SecondColumn from "../component/SecondText";
+import SecondText from "../component/SecondText";
 import ColonText from "../component/ColonText";
 
 class Timer {
   private scene: THREE.Scene;
   private nowMinute: MinuteSecondType;
   private nowSecond: MinuteSecondType;
-  private minuteObjs: MinuteColumn[];
-  private secondObjs: SecondColumn[];
+  private minuteObjs: MinuteText[];
+  private secondObjs: SecondText[];
   constructor(
     scene: THREE.Scene,
     minute: MinuteSecondType,
@@ -22,12 +22,9 @@ class Timer {
     this.secondObjs = [];
     const performanceNowSecond = performance.now();
     for (let i = 0; i < 60; i++) {
-      const minuteText = new MinuteColumn(
-        i as MinuteSecondType,
-        this.nowMinute
-      );
+      const minuteText = new MinuteText(i as MinuteSecondType, this.nowMinute);
       const colonText = new ColonText();
-      const secondText = new SecondColumn(
+      const secondText = new SecondText(
         i as MinuteSecondType,
         this.nowSecond,
         performanceNowSecond
