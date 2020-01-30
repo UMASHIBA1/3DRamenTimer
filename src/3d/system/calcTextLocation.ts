@@ -1,8 +1,9 @@
 import MinuteSecondType from "../../types/MinuteSecondType";
 import LocationType from "../../types/LocationType";
 
-const circleDiameter = 300;
+const circleDiameter = 500;
 
+// sin,cosあたり使って円周上の座標を出す
 const _calcIndexFromNowMinuteOrSecond = (
   thisMinuteOrSecond: MinuteSecondType,
   nowMinuteOrSecond: MinuteSecondType
@@ -21,44 +22,15 @@ const _calcIndexFromNowMinuteOrSecond = (
 
 // index30がY0になればよい
 const _calcPositionY = (indexFromNowMinuteOrSecond: number) => {
-  const distanceYDiff = circleDiameter / 15;
-  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 15) {
-    return distanceYDiff * indexFromNowMinuteOrSecond;
-  } else if (
-    15 <= indexFromNowMinuteOrSecond &&
-    indexFromNowMinuteOrSecond < 30
-  ) {
-    return distanceYDiff * Math.abs(indexFromNowMinuteOrSecond - 30);
-  } else if (
-    30 <= indexFromNowMinuteOrSecond &&
-    indexFromNowMinuteOrSecond < 45
-  ) {
-    return -distanceYDiff * (indexFromNowMinuteOrSecond - 30);
-  } else {
-    return distanceYDiff * (indexFromNowMinuteOrSecond - 60);
-  }
+  const radian = (indexFromNowMinuteOrSecond / 30) * Math.PI;
+  return (Math.sin(radian) * circleDiameter) / 2;
 };
 
 // 30の時のzが一番小さいようにする
 const _calcPositionZ = (indexFromNowMinuteOrSecond: number) => {
   const centerPositionZ = 500;
-  const zDiff = circleDiameter / 15;
-
-  if (0 <= indexFromNowMinuteOrSecond && indexFromNowMinuteOrSecond < 15) {
-    return centerPositionZ + zDiff * Math.abs(indexFromNowMinuteOrSecond - 15);
-  } else if (
-    15 <= indexFromNowMinuteOrSecond &&
-    indexFromNowMinuteOrSecond < 30
-  ) {
-    return centerPositionZ - zDiff * (indexFromNowMinuteOrSecond - 15);
-  } else if (
-    30 <= indexFromNowMinuteOrSecond &&
-    indexFromNowMinuteOrSecond < 45
-  ) {
-    return centerPositionZ - zDiff * Math.abs(indexFromNowMinuteOrSecond - 45);
-  } else {
-    return centerPositionZ + zDiff * Math.abs(indexFromNowMinuteOrSecond - 45);
-  }
+  const radian = (indexFromNowMinuteOrSecond / 30) * Math.PI;
+  return centerPositionZ + (Math.cos(radian) * circleDiameter) / 2;
 };
 
 const calcTextLocation = (
@@ -72,12 +44,6 @@ const calcTextLocation = (
   );
   const positionY = _calcPositionY(indexFromNowMinuteOrSecond);
   const positionZ = _calcPositionZ(indexFromNowMinuteOrSecond);
-  console.group();
-  console.log("this", thisMinuteOrSecond);
-  console.log("index", indexFromNowMinuteOrSecond);
-  console.log("y", positionY);
-  console.log("z", positionZ);
-  console.groupEnd();
 
   return {
     positionY,
