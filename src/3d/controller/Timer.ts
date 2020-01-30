@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import MinuteColumn from "../component/MinuteColumn";
+import MinuteColumn from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
-import SecondColumn from "../component/SecondColumn";
+import SecondColumn from "../component/SecondText";
 import ColonText from "../component/ColonText";
 
 class Timer {
