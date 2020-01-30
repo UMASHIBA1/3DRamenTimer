@@ -5,7 +5,7 @@ import createRenderer from "./3d/createRenderer";
 import createScene from "./3d/createScene";
 import BGBlock from "./3d/component/BGBlock";
 import createLight from "./3d/createLight";
-import Timer from "./3d/system/Timer";
+import Timer from "./3d/controller/Timer";
 
 const bgBlocksTick = (bgBlockList: BGBlock[]) => {
   for (let bgBlock of bgBlockList) {
