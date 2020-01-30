@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import MinuteColumn from "../component/MinuteColumn";
 import MinuteSecondType from "../../types/MinuteSecondType";
+import SecondColumn from "../component/SecondColumn";
+import ColonText from "../component/ColonText";
 
 class Timer {
   private scene: THREE.Scene;
@@ -15,8 +17,18 @@ class Timer {
     this.nowMinute = minute;
     this.nowSecond = second;
     for (let i = 0; i < 60; i++) {
-      const timerText = new MinuteColumn(i as MinuteSecondType, this.nowMinute);
-      this.scene.add(timerText);
+      const minuteText = new MinuteColumn(
+        i as MinuteSecondType,
+        this.nowMinute
+      );
+      const colonText = new ColonText();
+      const secondText = new SecondColumn(
+        i as MinuteSecondType,
+        this.nowSecond
+      );
+      this.scene.add(minuteText);
+      this.scene.add(colonText);
+      this.scene.add(secondText);
     }
   }
 
