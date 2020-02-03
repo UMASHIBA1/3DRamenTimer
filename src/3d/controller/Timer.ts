@@ -27,11 +27,10 @@ class Timer {
     const secondColumn = new SecondColumn();
     secondColumn.init(this.scene, this.nowSecond);
     this.secondColumn = secondColumn;
+    setInterval(() => {
+      this.minuteColumn.upOneMinute();
+    }, 60000);
   }
-
-  upOneSecond() {}
-
-  upOneMinute() {}
 
   public tick() {
     this.minuteColumn.tick();

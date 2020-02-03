@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(bgBlock);
   }
 
-  const timer = new Timer(scene, 30, 30);
+  const timer = new Timer(scene, 30, 0);
 
   const tick = () => {
     bgBlocksTick(bgBlocksList);
