@@ -1,10 +1,7 @@
 import * as THREE from "three";
 import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
-
-const easing = (nowLocation: number, targetLocation: number) => {
-  return (targetLocation - nowLocation) * 0.05;
-};
+import easing from "../system/easing";
 
 class MinuteColumn {
   private group: THREE.Group;
