@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import MinuteSecondType from "../../types/MinuteSecondType";
-import SecondText from "../component/SecondText";
 import ColonText from "../component/ColonText";
 import MinuteColumn from "./MinuteColumn";
 import SecondColumn from "./SecondColumn";
@@ -30,6 +29,9 @@ class Timer {
     setInterval(() => {
       this.minuteColumn.upOneMinute();
     }, 60000);
+    setInterval(() => {
+      this.secondColumn.upOneSecond();
+    }, 1000);
   }
 
   public tick() {
