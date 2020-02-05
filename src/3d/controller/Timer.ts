@@ -28,9 +28,9 @@ class Timer {
     this.secondColumn = secondColumn;
   }
 
-  private _startCount() {
-    this.minuteColumn._startCount();
-    this.secondColumn._startCount();
+  public startCount() {
+    this.minuteColumn.startCount();
+    this.secondColumn.startCount();
   }
 
   public tick() {

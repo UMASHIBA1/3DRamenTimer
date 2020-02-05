@@ -19,6 +19,15 @@ class MinuteColumn {
     this.rotationFlag = false;
   }
 
+  private upOneMinute() {
+    if (this.nowMinute != null) {
+      this.rotationFlag = true;
+      this.nowMinute++;
+    } else {
+      console.log("MinuteColumnのnowMinuteが設定されていません。");
+    }
+  }
+
   public init(scene: THREE.Scene, nowMinute: MinuteSecondType) {
     this.scene = scene;
     this.nowMinute = nowMinute;
@@ -29,22 +38,24 @@ class MinuteColumn {
       this.group.add(minuteText);
     }
     this.scene.add(this.group);
+    this.startSetTime();
   }
 
-  public _startCount() {
+  public startCount() {
     setInterval(() => {
       this.upOneMinute();
     }, 60000);
     this.upOneMinute();
   }
 
-  private upOneMinute() {
-    if (this.nowMinute != null) {
-      this.rotationFlag = true;
-      this.nowMinute++;
-    } else {
-      console.log("MinuteColumnのnowMinuteが設定されていません。");
-    }
+  public startSetTime() {
+    window.addEventListener("wheel", e => {
+      if (e.deltaY < 0) {
+        this.upOneMinute();
+      } else {
+        // this.downOneMinute();
+      }
+    });
   }
 
   public tick() {

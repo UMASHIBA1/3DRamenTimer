@@ -19,6 +19,15 @@ class SecondColumn {
     this.rotationFlag = false;
   }
 
+  private upOneSecond() {
+    if (this.nowSecond != null) {
+      this.rotationFlag = true;
+      this.nowSecond++;
+    } else {
+      console.log("SecondColumnのnowSecondが設定されていません。");
+    }
+  }
+
   public init(scene: THREE.Scene, nowSecond: MinuteSecondType) {
     this.scene = scene;
     this.nowSecond = nowSecond;
@@ -31,20 +40,11 @@ class SecondColumn {
     this.scene.add(this.group);
   }
 
-  public _startCount() {
+  public startCount() {
     setInterval(() => {
       this.upOneSecond();
     }, 1000);
     this.upOneSecond();
-  }
-
-  private upOneSecond() {
-    if (this.nowSecond != null) {
-      this.rotationFlag = true;
-      this.nowSecond++;
-    } else {
-      console.log("SecondColumnのnowSecondが設定されていません。");
-    }
   }
 
   public tick() {
