@@ -31,7 +31,14 @@ class SecondColumn {
     this.scene.add(this.group);
   }
 
-  public upOneSecond() {
+  public _startCount() {
+    setInterval(() => {
+      this.upOneSecond();
+    }, 1000);
+    this.upOneSecond();
+  }
+
+  private upOneSecond() {
     if (this.nowSecond != null) {
       this.rotationFlag = true;
       this.nowSecond++;

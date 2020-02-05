@@ -31,7 +31,14 @@ class MinuteColumn {
     this.scene.add(this.group);
   }
 
-  public upOneMinute() {
+  public _startCount() {
+    setInterval(() => {
+      this.upOneMinute();
+    }, 60000);
+    this.upOneMinute();
+  }
+
+  private upOneMinute() {
     if (this.nowMinute != null) {
       this.rotationFlag = true;
       this.nowMinute++;

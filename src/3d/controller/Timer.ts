@@ -19,19 +19,18 @@ class Timer {
     this.nowMinute = minute;
     this.nowSecond = second;
     const colonText = new ColonText();
-    this.scene.add(colonText);
     const minuteColumn = new MinuteColumn();
-    minuteColumn.init(this.scene, this.nowMinute);
-    this.minuteColumn = minuteColumn;
     const secondColumn = new SecondColumn();
+    this.scene.add(colonText);
+    minuteColumn.init(this.scene, this.nowMinute);
     secondColumn.init(this.scene, this.nowSecond);
+    this.minuteColumn = minuteColumn;
     this.secondColumn = secondColumn;
-    setInterval(() => {
-      this.minuteColumn.upOneMinute();
-    }, 60000);
-    setInterval(() => {
-      this.secondColumn.upOneSecond();
-    }, 1000);
+  }
+
+  private _startCount() {
+    this.minuteColumn._startCount();
+    this.secondColumn._startCount();
   }
 
   public tick() {
