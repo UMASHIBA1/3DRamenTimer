@@ -3,26 +3,46 @@ import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import easing from "../system/easing";
 
+interface RotationSetting {
+  rotationFlag: boolean;
+  direction: "up" | "down" | "";
+}
+
 class MinuteColumn {
   private group: THREE.Group;
   private scene: THREE.Scene | null;
   private nowMinute: MinuteSecondType | null;
   private startMinute: MinuteSecondType | null;
   private minuteObjs: MinuteText[];
-  private rotationFlag: boolean;
+  private rotationSetting: RotationSetting;
   constructor() {
     this.group = new THREE.Group();
     this.scene = null;
     this.nowMinute = null;
     this.startMinute = null;
     this.minuteObjs = [];
-    this.rotationFlag = false;
+    this.rotationSetting = { rotationFlag: false, direction: "" };
   }
 
-  private upOneMinute() {
+  private _upOneMinute() {
     if (this.nowMinute != null) {
-      this.rotationFlag = true;
+      this.rotationSetting = {
+        rotationFlag: true,
+        direction: "up"
+      };
       this.nowMinute++;
+    } else {
+      console.log("MinuteColumnのnowMinuteが設定されていません。");
+    }
+  }
+
+  private _downOneMinute() {
+    if (this.nowMinute != null) {
+      this.rotationSetting = {
+        rotationFlag: true,
+        direction: "down"
+      };
+      this.nowMinute--;
     } else {
       console.log("MinuteColumnのnowMinuteが設定されていません。");
     }
@@ -43,36 +63,50 @@ class MinuteColumn {
 
   public startCount() {
     setInterval(() => {
-      this.upOneMinute();
+      this._upOneMinute();
     }, 60000);
-    this.upOneMinute();
+    this._upOneMinute();
   }
 
   public startSetTime() {
     window.addEventListener("wheel", e => {
       if (e.deltaY < 0) {
-        this.upOneMinute();
+        this._upOneMinute();
       } else {
-        // this.downOneMinute();
+        this._downOneMinute();
       }
     });
   }
 
   public tick() {
+    console.log(this.nowMinute);
     if (
-      this.rotationFlag &&
+      this.rotationSetting.rotationFlag &&
       this.nowMinute != null &&
       this.startMinute != null
     ) {
-      this.group.rotation.x += easing(
-        this.group.rotation.x,
-        (this.nowMinute - this.startMinute) * ((2 * Math.PI) / 60)
-      );
-      if (
-        (this.nowMinute - this.startMinute) * 6 - this.group.rotation.x <
-        0.01
-      ) {
-        this.rotationFlag = false;
+      const targetLocation =
+        (this.nowMinute - this.startMinute) * ((2 * Math.PI) / 60);
+      if (this.rotationSetting.direction === "up") {
+        this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
+        if (targetLocation - this.group.rotation.x < 0.0001) {
+          console.log("upStop");
+          this.rotationSetting = {
+            rotationFlag: false,
+            direction: ""
+          };
+        }
+      } else if (this.rotationSetting.direction === "down") {
+        this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
+        if (this.group.rotation.x - targetLocation < 0.0001) {
+          console.log("downStop");
+          this.rotationSetting = {
+            rotationFlag: false,
+            direction: ""
+          };
+        }
+      } else {
+        this.rotationSetting.rotationFlag = false;
       }
     }
   }
