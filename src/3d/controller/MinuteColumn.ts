@@ -24,11 +24,11 @@ class MinuteColumn {
     this.rotationSetting = { rotationFlag: false, direction: "" };
   }
 
-  private _upOneMinute() {
+  private _increaseOneMinute() {
     if (this.nowMinute != null) {
       this.rotationSetting = {
         rotationFlag: true,
-        direction: "up"
+        direction: "down"
       };
       this.nowMinute++;
     } else {
@@ -36,11 +36,11 @@ class MinuteColumn {
     }
   }
 
-  private _downOneMinute() {
+  private _decreaseOneMinute() {
     if (this.nowMinute != null) {
       this.rotationSetting = {
         rotationFlag: true,
-        direction: "down"
+        direction: "up"
       };
       this.nowMinute--;
     } else {
@@ -59,38 +59,38 @@ class MinuteColumn {
     }
     this.scene.add(this.group);
     this.startSetTime();
+    // this.startCount();
   }
 
   public startCount() {
     setInterval(() => {
-      this._upOneMinute();
+      this._decreaseOneMinute();
     }, 60000);
-    this._upOneMinute();
+    this._decreaseOneMinute();
   }
 
   public startSetTime() {
     window.addEventListener("wheel", e => {
       if (e.deltaY < 0) {
-        this._upOneMinute();
+        this._decreaseOneMinute();
       } else {
-        this._downOneMinute();
+        this._increaseOneMinute();
       }
     });
   }
 
   public tick() {
-    console.log(this.nowMinute);
     if (
       this.rotationSetting.rotationFlag &&
       this.nowMinute != null &&
       this.startMinute != null
     ) {
       const targetLocation =
-        (this.nowMinute - this.startMinute) * ((2 * Math.PI) / 60);
+        (this.startMinute - this.nowMinute) * ((2 * Math.PI) / 60);
+
       if (this.rotationSetting.direction === "up") {
         this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
         if (targetLocation - this.group.rotation.x < 0.0001) {
-          console.log("upStop");
           this.rotationSetting = {
             rotationFlag: false,
             direction: ""
@@ -99,7 +99,6 @@ class MinuteColumn {
       } else if (this.rotationSetting.direction === "down") {
         this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
         if (this.group.rotation.x - targetLocation < 0.0001) {
-          console.log("downStop");
           this.rotationSetting = {
             rotationFlag: false,
             direction: ""
