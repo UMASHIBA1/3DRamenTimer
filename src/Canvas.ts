@@ -1,12 +1,22 @@
+const calcPositionXFromCenter = (clientX: number) => {
+  const centerWidth = window.innerWidth / 2;
+  return clientX - centerWidth;
+};
+
+const calcPositionYFromCenter = (clientY: number) => {
+  const centerHeight = window.innerHeight / 2;
+  return clientY - centerHeight;
+};
+
 export default class Canvas {
   private _canvas: HTMLElement | null;
-  private _nowCursorX: number;
-  private _nowCursorY: number;
+  private _nowPositionX: number;
+  private _nowPositionY: number;
   constructor() {
     this._canvas = document.getElementById("canvas");
     // _nowCursorXと_nowCursorYは画面の中心からの位置を表す
-    this._nowCursorX = 0;
-    this._nowCursorY = 0;
+    this._nowPositionX = 0;
+    this._nowPositionY = 0;
 
     const adjustCanvasSize = () => {
       if (this._canvas === null) {
@@ -24,16 +34,16 @@ export default class Canvas {
 
   private _controllNowCursorPosition() {
     window.addEventListener("mousemove", e => {
-      this._nowCursorX = e.clientX;
-      this._nowCursorY = e.clientY;
+      this._nowPositionX = calcPositionXFromCenter(e.clientX);
+      this._nowPositionY = calcPositionYFromCenter(e.clientY);
     });
   }
 
-  public get cursorX(): number {
-    return this._nowCursorX;
+  public get positionX(): number {
+    return this._nowPositionX;
   }
 
-  public get cursorY(): number {
-    return this._nowCursorY;
+  public get positionY(): number {
+    return this._nowPositionY;
   }
 }
