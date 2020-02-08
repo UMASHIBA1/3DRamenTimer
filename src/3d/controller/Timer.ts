@@ -3,18 +3,22 @@ import MinuteSecondType from "../../types/MinuteSecondType";
 import ColonText from "../component/ColonText";
 import MinuteColumn from "./MinuteColumn";
 import SecondColumn from "./SecondColumn";
+import Canvas from "../../Canvas";
 
 class Timer {
+  private canvas: Canvas;
   private scene: THREE.Scene;
   private nowMinute: MinuteSecondType;
   private nowSecond: MinuteSecondType;
   private minuteColumn: MinuteColumn;
   private secondColumn: SecondColumn;
   constructor(
+    canvas: Canvas,
     scene: THREE.Scene,
     minute: MinuteSecondType,
     second: MinuteSecondType
   ) {
+    this.canvas = canvas;
     this.scene = scene;
     this.nowMinute = minute;
     this.nowSecond = second;
