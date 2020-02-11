@@ -6,11 +6,11 @@ type RotateDirectionType = "right" | "left";
 class OneRing {
   private _group: THREE.Group;
   private _rotateDirection: RotateDirectionType;
-  constructor(rotateDirection: RotateDirectionType) {
+  constructor(rotateDirection: RotateDirectionType, radius: number) {
     this._group = new THREE.Group();
     this._rotateDirection = rotateDirection;
     for (let i = 0; i < 9; i++) {
-      const ringFrag = new RingFragment(i, 50);
+      const ringFrag = new RingFragment(i, radius);
       this._group.add(ringFrag);
     }
     this._group.rotation.x = 0;
