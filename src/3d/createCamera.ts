@@ -8,8 +8,11 @@ const resizeCameraAspect = (camera: THREE.PerspectiveCamera) => {
 };
 
 export default () => {
-  const camera = new THREE.PerspectiveCamera(45);
-  camera.position.set(0, 0, 500);
+  const cameraPositionZ = 500;
+  const fov =
+    (Math.atan2(window.innerWidth / 2, cameraPositionZ) / Math.PI) * 180;
+  const camera = new THREE.PerspectiveCamera(fov);
+  camera.position.set(0, 0, cameraPositionZ);
   camera.lookAt(new THREE.Vector3(0, 0, 0));
   resizeCameraAspect(camera);
 
