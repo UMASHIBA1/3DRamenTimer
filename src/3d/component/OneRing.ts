@@ -13,7 +13,7 @@ class OneRing {
       const ringFrag = new RingFragment(i, radius);
       this._group.add(ringFrag);
     }
-    this._group.rotation.x = 0;
+    this._group.rotation.z = Math.random();
   }
 
   public get ring() {
