@@ -26,7 +26,7 @@ class Timer {
     const minuteColumn = new MinuteColumn();
     const secondColumn = new SecondColumn();
     this.scene.add(colonText);
-    minuteColumn.init(this.scene, this.nowMinute);
+    minuteColumn.init(this.canvas, this.scene, this.nowMinute);
     secondColumn.init(this.scene, this.nowSecond);
     this.minuteColumn = minuteColumn;
     this.secondColumn = secondColumn;

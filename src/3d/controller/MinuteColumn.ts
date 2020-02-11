@@ -2,6 +2,7 @@ import * as THREE from "three";
 import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import easing from "../system/easing";
+import Canvas from "../../Canvas";
 
 interface RotationSetting {
   rotationFlag: boolean;
@@ -10,6 +11,7 @@ interface RotationSetting {
 
 class MinuteColumn {
   private group: THREE.Group;
+  private canvas: Canvas | null;
   private scene: THREE.Scene | null;
   private nowMinute: MinuteSecondType | null;
   private startMinute: MinuteSecondType | null;
@@ -17,6 +19,7 @@ class MinuteColumn {
   private rotationSetting: RotationSetting;
   constructor() {
     this.group = new THREE.Group();
+    this.canvas = null;
     this.scene = null;
     this.nowMinute = null;
     this.startMinute = null;
@@ -48,8 +51,9 @@ class MinuteColumn {
     }
   }
 
-  public init(scene: THREE.Scene, nowMinute: MinuteSecondType) {
+  public init(canvas: Canvas, scene: THREE.Scene, nowMinute: MinuteSecondType) {
     this.scene = scene;
+    this.canvas = canvas;
     this.nowMinute = nowMinute;
     this.startMinute = nowMinute;
     for (let i = 0; i < 60; i++) {
@@ -59,7 +63,6 @@ class MinuteColumn {
     }
     this.scene.add(this.group);
     this.startSetTime();
-    // this.startCount();
   }
 
   public startCount() {
@@ -71,11 +74,17 @@ class MinuteColumn {
 
   public startSetTime() {
     window.addEventListener("wheel", e => {
-      if (e.deltaY < 0) {
-        this._decreaseOneMinute();
-      } else {
-        this._increaseOneMinute();
-      }
+      console.log("canvasPositionX", (this.canvas as Canvas).positionX);
+      if (
+        this.canvas !== null &&
+        this.canvas.positionX < -12 &&
+        this.canvas.positionX > -160
+      )
+        if (e.deltaY < 0) {
+          this._decreaseOneMinute();
+        } else {
+          this._increaseOneMinute();
+        }
     });
   }
 
