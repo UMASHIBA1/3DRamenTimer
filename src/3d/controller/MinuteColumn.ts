@@ -3,11 +3,7 @@ import MinuteText from "../component/MinuteText";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import easing from "../system/easing";
 import Canvas from "../../Canvas";
-
-interface RotationSetting {
-  rotationFlag: boolean;
-  direction: "up" | "down" | "";
-}
+import RotationSetting from "../../types/RotationSetting";
 
 class MinuteColumn {
   private group: THREE.Group;
