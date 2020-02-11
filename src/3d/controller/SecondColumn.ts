@@ -97,7 +97,6 @@ class SecondColumn {
   }
 
   public tick() {
-    console.log("nowSecond: ", this._nowSecond);
     if (
       this._rotationSetting.rotationFlag &&
       this._nowSecond != null &&

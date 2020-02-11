@@ -94,7 +94,6 @@ class MinuteColumn {
   }
 
   public tick() {
-    console.log("nowMinute: ", this._nowMinute);
     if (
       this._rotationSetting.rotationFlag &&
       this._nowMinute != null &&
