@@ -77,7 +77,7 @@ class SecondColumn {
       if (
         this.canvas !== null &&
         this.canvas.positionX < 200 &&
-        this.canvas.positionX > 36
+        this.canvas.positionX > 32
       )
         if (e.deltaY < 0) {
           this._decreaseOneSecond();

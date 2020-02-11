@@ -19,7 +19,7 @@ class SecondText extends THREE.Mesh {
       thisSecond,
       nowSecond
     );
-    this.position.x = 10;
+    this.position.x = 7;
     this.position.y = positionY;
     this.position.z = positionZ;
     this.rotation.x = rotationX;
