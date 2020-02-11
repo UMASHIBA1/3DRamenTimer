@@ -6,59 +6,59 @@ import Canvas from "../../Canvas";
 import RotationSetting from "../../types/RotationSetting";
 
 class MinuteColumn {
-  private group: THREE.Group;
-  private canvas: Canvas | null;
-  private scene: THREE.Scene | null;
-  private nowMinute: MinuteSecondType | null;
-  private startMinute: MinuteSecondType | null;
-  private minuteObjs: MinuteText[];
-  private rotationSetting: RotationSetting;
+  private _group: THREE.Group;
+  private _canvas: Canvas | null;
+  private _scene: THREE.Scene | null;
+  private _nowMinute: MinuteSecondType | null;
+  private _startMinute: MinuteSecondType | null;
+  private _minuteObjs: MinuteText[];
+  private _rotationSetting: RotationSetting;
   constructor() {
-    this.group = new THREE.Group();
-    this.canvas = null;
-    this.scene = null;
-    this.nowMinute = null;
-    this.startMinute = null;
-    this.minuteObjs = [];
-    this.rotationSetting = { rotationFlag: false, direction: "" };
+    this._group = new THREE.Group();
+    this._canvas = null;
+    this._scene = null;
+    this._nowMinute = null;
+    this._startMinute = null;
+    this._minuteObjs = [];
+    this._rotationSetting = { rotationFlag: false, direction: "" };
   }
 
   private _increaseOneMinute() {
-    if (this.nowMinute != null) {
-      this.rotationSetting = {
+    if (this._nowMinute != null) {
+      this._rotationSetting = {
         rotationFlag: true,
         direction: "down"
       };
-      this.nowMinute++;
+      this._nowMinute++;
     } else {
       console.log("MinuteColumnのnowMinuteが設定されていません。");
     }
   }
 
   private _decreaseOneMinute() {
-    if (this.nowMinute != null) {
-      this.rotationSetting = {
+    if (this._nowMinute != null) {
+      this._rotationSetting = {
         rotationFlag: true,
         direction: "up"
       };
-      this.nowMinute--;
+      this._nowMinute--;
     } else {
       console.log("MinuteColumnのnowMinuteが設定されていません。");
     }
   }
 
   public init(canvas: Canvas, scene: THREE.Scene, nowMinute: MinuteSecondType) {
-    this.scene = scene;
-    this.canvas = canvas;
-    this.nowMinute = nowMinute;
-    this.startMinute = nowMinute;
+    this._scene = scene;
+    this._canvas = canvas;
+    this._nowMinute = nowMinute;
+    this._startMinute = nowMinute;
     for (let i = 0; i < 60; i++) {
-      const minuteText = new MinuteText(i as MinuteSecondType, this.nowMinute);
-      this.minuteObjs.push(minuteText);
-      this.group.add(minuteText);
+      const minuteText = new MinuteText(i as MinuteSecondType, this._nowMinute);
+      this._minuteObjs.push(minuteText);
+      this._group.add(minuteText);
     }
-    this.scene.add(this.group);
-    this.startSetTime();
+    this._scene.add(this._group);
+    this._startSetTime();
   }
 
   public startCount() {
@@ -68,13 +68,13 @@ class MinuteColumn {
     this._decreaseOneMinute();
   }
 
-  public startSetTime() {
+  private _startSetTime() {
     window.addEventListener("wheel", e => {
-      console.log("canvasPositionX", (this.canvas as Canvas).positionX);
+      console.log("canvasPositionX", (this._canvas as Canvas).positionX);
       if (
-        this.canvas !== null &&
-        this.canvas.positionX < -12 &&
-        this.canvas.positionX > -160
+        this._canvas !== null &&
+        this._canvas.positionX < -12 &&
+        this._canvas.positionX > -160
       )
         if (e.deltaY < 0) {
           this._decreaseOneMinute();
@@ -84,34 +84,49 @@ class MinuteColumn {
     });
   }
 
+  public get nowMinute() {
+    if (this._nowMinute !== null) {
+      return this._nowMinute % 60;
+    } else {
+      console.log("MinuteColumnで_nowMinuteが設定されていません");
+      return 0;
+    }
+  }
+
   public tick() {
-    console.log("nowMinute: ", this.nowMinute);
+    console.log("nowMinute: ", this._nowMinute);
     if (
-      this.rotationSetting.rotationFlag &&
-      this.nowMinute != null &&
-      this.startMinute != null
+      this._rotationSetting.rotationFlag &&
+      this._nowMinute != null &&
+      this._startMinute != null
     ) {
       const targetLocation =
-        (this.startMinute - this.nowMinute) * ((2 * Math.PI) / 60);
+        (this._startMinute - this._nowMinute) * ((2 * Math.PI) / 60);
 
-      if (this.rotationSetting.direction === "up") {
-        this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
-        if (targetLocation - this.group.rotation.x < 0.0001) {
-          this.rotationSetting = {
+      if (this._rotationSetting.direction === "up") {
+        this._group.rotation.x += easing(
+          this._group.rotation.x,
+          targetLocation
+        );
+        if (targetLocation - this._group.rotation.x < 0.0001) {
+          this._rotationSetting = {
             rotationFlag: false,
             direction: ""
           };
         }
-      } else if (this.rotationSetting.direction === "down") {
-        this.group.rotation.x += easing(this.group.rotation.x, targetLocation);
-        if (this.group.rotation.x - targetLocation < 0.0001) {
-          this.rotationSetting = {
+      } else if (this._rotationSetting.direction === "down") {
+        this._group.rotation.x += easing(
+          this._group.rotation.x,
+          targetLocation
+        );
+        if (this._group.rotation.x - targetLocation < 0.0001) {
+          this._rotationSetting = {
             rotationFlag: false,
             direction: ""
           };
         }
       } else {
-        this.rotationSetting.rotationFlag = false;
+        this._rotationSetting.rotationFlag = false;
       }
     }
   }
