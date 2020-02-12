@@ -14,7 +14,7 @@ export default () => {
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas
   });
-  renderer.setClearColor(0xffffff);
+  renderer.setClearColor(0x202124);
   adjustRendererSize(renderer);
 
   window.addEventListener("resize", () => {
