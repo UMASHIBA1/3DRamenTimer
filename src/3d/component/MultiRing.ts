@@ -7,7 +7,8 @@ class MultiRing {
   constructor(
     outlineRadius: number = 50,
     ringNum: number = 3,
-    ringSizeDiff: number = 10
+    ringSizeDiff: number = 10,
+    tube?: number
   ) {
     this._group = new THREE.Group();
     this._oneRings = [];
@@ -18,7 +19,7 @@ class MultiRing {
       count++, nowRadius -= ringSizeDiff
     ) {
       const rotateDirection = count % 2 ? "left" : "right";
-      const ring = new OneRing(rotateDirection, nowRadius);
+      const ring = new OneRing(rotateDirection, nowRadius, tube);
       this._oneRings.push(ring);
     }
 
