@@ -13,7 +13,7 @@ class SecondText extends THREE.Mesh {
       size: 20,
       height: 5
     });
-    const material = new THREE.MeshLambertMaterial();
+    const material = new THREE.MeshToonMaterial({ color: "#FAF4EC" });
     super(geometry, material);
     const { positionY, positionZ, rotationX } = calcTextLocation(
       thisSecond,
