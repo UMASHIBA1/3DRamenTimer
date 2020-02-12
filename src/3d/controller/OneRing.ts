@@ -9,12 +9,13 @@ class OneRing {
   constructor(
     rotateDirection: RotateDirectionType,
     radius: number,
-    tube?: number
+    tube?: number,
+    arc?: number
   ) {
     this._group = new THREE.Group();
     this._rotateDirection = rotateDirection;
     for (let i = 0; i < 9; i++) {
-      const ringFrag = new RingFragment(i, radius, tube);
+      const ringFrag = new RingFragment(i, radius, tube, arc);
       this._group.add(ringFrag);
     }
     this._group.rotation.z = Math.random();
