@@ -5,7 +5,7 @@ import createScene from "./3d/createScene";
 import createLight from "./3d/createLight";
 import Timer from "./3d/controller/Timer";
 import Canvas from "./Canvas";
-import MultiRing from "./3d/component/MultiRing";
+import MultiRing from "./3d/controller/MultiRing";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = new Canvas();

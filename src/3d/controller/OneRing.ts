@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import RingFragment from "./RingFragment";
+import RingFragment from "../component/RingFragment";
 
 type RotateDirectionType = "right" | "left";
 
