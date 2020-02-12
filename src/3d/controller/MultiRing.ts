@@ -28,6 +28,11 @@ class MultiRing {
     }
   }
 
+  public setPositionXY(x: number = 0, y: number = 0) {
+    this._group.position.x = x;
+    this._group.position.y = y;
+  }
+
   public get multiRing() {
     return this._group;
   }
