@@ -73,7 +73,6 @@ class SecondColumn {
 
   private _startSetTime() {
     window.addEventListener("wheel", e => {
-      console.log("canvasPositionX", (this._canvas as Canvas).positionX);
       if (
         this._canvas !== null &&
         this._canvas.positionX < 200 &&
