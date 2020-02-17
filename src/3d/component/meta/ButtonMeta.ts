@@ -7,6 +7,8 @@ class ButtonMeta extends THREE.Mesh {
   private _isWaitPushEnd: boolean;
   private _isPushEnd: boolean;
   private _raycaster: THREE.Raycaster;
+  public isClicked: boolean;
+  private _isActive: boolean;
   constructor(camera: THREE.Camera, material: THREE.Material) {
     const geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.6, 50, 50);
     super(geometry, material);
@@ -20,8 +22,18 @@ class ButtonMeta extends THREE.Mesh {
     this._isWaitPushEnd = false;
     this._isPushEnd = false;
     this._raycaster = new THREE.Raycaster();
+    this.isClicked = false;
+    this._isActive = false;
     this._pushStart();
     this._pushEnd();
+  }
+
+  public activate() {
+    this._isActive = true;
+  }
+
+  public deactivate() {
+    this._isActive = false;
   }
 
   private _pushStart() {
@@ -34,22 +46,29 @@ class ButtonMeta extends THREE.Mesh {
     };
 
     window.addEventListener("mousedown", e => {
-      const x = e.clientX;
-      const y = e.clientY;
-      _changeStateAboutPush(x, y);
+      if (this._isActive) {
+        const x = e.clientX;
+        const y = e.clientY;
+        _changeStateAboutPush(x, y);
+      }
     });
     window.addEventListener("touchstart", e => {
-      const touch = e.touches[0];
-      const x = touch.clientX;
-      const y = touch.clientY;
-      _changeStateAboutPush(x, y);
+      if (this._isActive) {
+        const touch = e.touches[0];
+        const x = touch.clientX;
+        const y = touch.clientY;
+        _changeStateAboutPush(x, y);
+      }
     });
   }
 
   private _pushEnd() {
     const _pushEndFunc = () => {
-      if (this._isWaitPushEnd) {
-        this._isPushEnd = true;
+      if (this._isActive) {
+        if (this._isWaitPushEnd) {
+          this._isPushEnd = true;
+          this.isClicked = true;
+        }
       }
     };
 
@@ -58,20 +77,22 @@ class ButtonMeta extends THREE.Mesh {
   }
 
   public tick() {
-    this._raycaster.setFromCamera(this._mouse, this._camera);
-    if (this._isPushStart) {
-      const intersect = this._raycaster.intersectObject(this);
-      if (intersect.length > 0) {
-        this.geometry.dispose();
-        this.geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.2, 50, 50);
-        this._isPushStart = false;
-        this._isWaitPushEnd = true;
+    if (this._isActive) {
+      this._raycaster.setFromCamera(this._mouse, this._camera);
+      if (this._isPushStart) {
+        const intersect = this._raycaster.intersectObject(this);
+        if (intersect.length > 0) {
+          this.geometry.dispose();
+          this.geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.2, 50, 50);
+          this._isPushStart = false;
+          this._isWaitPushEnd = true;
+        }
       }
-    }
-    if (this._isPushEnd) {
-      this.geometry.dispose();
-      this.geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.6, 50, 50);
-      this._isPushEnd = false;
+      if (this._isPushEnd) {
+        this.geometry.dispose();
+        this.geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.6, 50, 50);
+        this._isPushEnd = false;
+      }
     }
   }
 }
