@@ -12,6 +12,7 @@ class Timer {
   private nowSecond: MinuteSecondType;
   private minuteColumn: MinuteColumn;
   private secondColumn: SecondColumn;
+  public isStartedCount: boolean;
   constructor(
     canvas: Canvas,
     scene: THREE.Scene,
@@ -30,11 +31,13 @@ class Timer {
     secondColumn.init(this.canvas, this.scene, this.nowSecond);
     this.minuteColumn = minuteColumn;
     this.secondColumn = secondColumn;
+    this.isStartedCount = false;
   }
 
   public startCount() {
     this.minuteColumn.startCount();
     this.secondColumn.startCount();
+    this.isStartedCount = true;
   }
 
   public tick() {
