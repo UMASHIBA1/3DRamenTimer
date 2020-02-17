@@ -22,6 +22,9 @@ class TimerButtonsController {
     if (this._buttons.isStarted && !this._timer.isStartedCount) {
       this._timer.startCount();
     }
+    if (!this._buttons.isStarted && this._timer.isStartedCount) {
+      this._timer.stopCount();
+    }
     this._timer.tick();
     this._buttons.tick();
   }

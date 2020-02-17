@@ -3,10 +3,8 @@ import createCamera from "./3d/createCamera";
 import createRenderer from "./3d/createRenderer";
 import createScene from "./3d/createScene";
 import createLight from "./3d/createLight";
-import Timer from "./3d/controller/Timer";
 import Canvas from "./Canvas";
 import createManyRings from "./3d/createManyRings";
-import Buttons from "./3d/controller/Buttons";
 import TimerButtonsController from "./3d/controller/TimerButtonsController";
 
 document.addEventListener("DOMContentLoaded", () => {

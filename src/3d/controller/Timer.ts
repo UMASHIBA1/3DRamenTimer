@@ -40,6 +40,11 @@ class Timer {
     this.isStartedCount = true;
   }
 
+  public stopCount() {
+    this.secondColumn.stopCount();
+    this.isStartedCount = false;
+  }
+
   public tick() {
     this.minuteColumn.tick();
     this.secondColumn.tick();

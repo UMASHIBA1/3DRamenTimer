@@ -13,6 +13,7 @@ class SecondColumn {
   private _startSecond: MinuteSecondType | null;
   private _secondObjs: SecondText[];
   private _rotationSetting: RotationSetting;
+  private _startCountIntervalID: NodeJS.Timeout | null;
   constructor() {
     this._group = new THREE.Group();
     this._canvas = null;
@@ -24,6 +25,7 @@ class SecondColumn {
       rotationFlag: false,
       direction: ""
     };
+    this._startCountIntervalID = null;
   }
 
   private _increaseOneSecond() {
@@ -65,10 +67,18 @@ class SecondColumn {
   }
 
   public startCount() {
-    setInterval(() => {
+    this._startCountIntervalID = setInterval(() => {
       this._decreaseOneSecond();
     }, 1000);
     this._decreaseOneSecond();
+  }
+
+  public stopCount() {
+    if (this._startCountIntervalID !== null) {
+      clearInterval(this._startCountIntervalID);
+    } else {
+      console.log("Secondを刻んでいるIntervalIDが見つかりません");
+    }
   }
 
   private _startSetTime() {
