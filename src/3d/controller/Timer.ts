@@ -42,6 +42,7 @@ class Timer {
 
   public stopCount() {
     this.secondColumn.stopCount();
+    this.minuteColumn.stopCount();
     this.isStartedCount = false;
   }
 

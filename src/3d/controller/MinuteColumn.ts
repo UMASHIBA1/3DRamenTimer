@@ -13,6 +13,7 @@ class MinuteColumn {
   private _startMinute: MinuteSecondType | null;
   private _minuteObjs: MinuteText[];
   private _rotationSetting: RotationSetting;
+  private _startCountIntervalID: NodeJS.Timeout | null;
   constructor() {
     this._group = new THREE.Group();
     this._canvas = null;
@@ -21,6 +22,7 @@ class MinuteColumn {
     this._startMinute = null;
     this._minuteObjs = [];
     this._rotationSetting = { rotationFlag: false, direction: "" };
+    this._startCountIntervalID = null;
   }
 
   private _increaseOneMinute() {
@@ -62,10 +64,18 @@ class MinuteColumn {
   }
 
   public startCount() {
-    setInterval(() => {
+    this._startCountIntervalID = setInterval(() => {
       this._decreaseOneMinute();
     }, 60000);
     this._decreaseOneMinute();
+  }
+
+  public stopCount() {
+    if (this._startCountIntervalID !== null) {
+      clearInterval(this._startCountIntervalID);
+    } else {
+      console.log("Minuteを刻んでいるIntervalIDが見つかりません");
+    }
   }
 
   private _startSetTime() {
