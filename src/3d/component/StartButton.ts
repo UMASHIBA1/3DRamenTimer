@@ -6,7 +6,7 @@ class StartButton extends THREE.Mesh {
   private _mouse: THREE.Vector2;
   private _isClicked: boolean;
   private _raycaster: THREE.Raycaster;
-  constructor(camera: THREE.Camera, scene: THREE.Scene) {
+  constructor(camera: THREE.Camera) {
     const loader = new THREE.TextureLoader();
     const texture = loader.load(startImg);
     const geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.6, 50, 50);
