@@ -3,12 +3,13 @@ import * as THREE from "three";
 class ButtonMeta extends THREE.Mesh {
   private _camera: THREE.Camera;
   private _mouse: THREE.Vector2;
+  private _isActive: boolean;
   private _isPushStart: boolean;
   private _isWaitPushEnd: boolean;
   private _isPushEnd: boolean;
   private _raycaster: THREE.Raycaster;
   public isClicked: boolean;
-  private _isActive: boolean;
+
   constructor(camera: THREE.Camera, material: THREE.Material) {
     const geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.6, 50, 50);
     super(geometry, material);
@@ -16,6 +17,7 @@ class ButtonMeta extends THREE.Mesh {
     this.position.y = -16;
     this.rotation.x = 0.5 * Math.PI;
     this.rotation.y = 0.5 * Math.PI;
+
     this._camera = camera;
     this._mouse = new THREE.Vector2();
     this._isPushStart = false;
