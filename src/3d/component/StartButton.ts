@@ -32,23 +32,36 @@ class StartButton extends THREE.Mesh {
   }
 
   private _pushStart() {
-    window.addEventListener("mousedown", e => {
-      const x = e.clientX;
-      const y = e.clientY;
+    const _changePushState = (x: number, y: number) => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       this._mouse.x = (x / width) * 2 - 1;
       this._mouse.y = -(y / height) * 2 + 1;
       this._isPushStart = true;
+    };
+
+    window.addEventListener("mousedown", e => {
+      const x = e.clientX;
+      const y = e.clientY;
+      _changePushState(x, y);
+    });
+    window.addEventListener("touchstart", e => {
+      const touch = e.touches[0];
+      const x = touch.clientX;
+      const y = touch.clientY;
+      _changePushState(x, y);
     });
   }
 
   private _pushEnd() {
-    window.addEventListener("mouseup", () => {
+    const _pushEndFunc = () => {
       if (this._isWaitPushEnd) {
         this._isPushEnd = true;
       }
-    });
+    };
+
+    window.addEventListener("mouseup", _pushEndFunc);
+    window.addEventListener("touchend", _pushEndFunc);
   }
 
   public tick() {
