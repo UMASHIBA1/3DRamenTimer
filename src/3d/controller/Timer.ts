@@ -12,6 +12,7 @@ class Timer {
   private nowSecond: MinuteSecondType;
   private minuteColumn: MinuteColumn;
   private secondColumn: SecondColumn;
+  private isWaitingStopCountAfterFinish: boolean;
   public isStartedCount: boolean;
   constructor(
     canvas: Canvas,
@@ -31,6 +32,7 @@ class Timer {
     secondColumn.init(this.canvas, this.scene, this.nowSecond);
     this.minuteColumn = minuteColumn;
     this.secondColumn = secondColumn;
+    this.isWaitingStopCountAfterFinish = true;
     this.isStartedCount = false;
   }
 
@@ -47,7 +49,21 @@ class Timer {
     this.isStartedCount = false;
   }
 
+  public get isFinished() {
+    if (
+      this.secondColumn.nowSecond === 0 &&
+      this.minuteColumn.nowMinute === 0
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   public tick() {
+    if (this.isFinished && this.isWaitingStopCountAfterFinish) {
+      this.isWaitingStopCountAfterFinish = false;
+      this.stopCount();
+    }
     this.minuteColumn.tick();
     this.secondColumn.tick();
   }

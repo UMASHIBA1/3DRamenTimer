@@ -14,7 +14,7 @@ class MinuteColumn {
   private _minuteObjs: MinuteText[];
   private _rotationSetting: RotationSetting;
   private _startCountIntervalID: NodeJS.Timeout | null;
-  private _startSetTimeFunc: (e: WheelEvent) => void;
+  private _setTimeFunc: (e: WheelEvent) => void;
   constructor() {
     this._group = new THREE.Group();
     this._canvas = null;
@@ -24,7 +24,7 @@ class MinuteColumn {
     this._minuteObjs = [];
     this._rotationSetting = { rotationFlag: false, direction: "" };
     this._startCountIntervalID = null;
-    this._startSetTimeFunc = (e: WheelEvent) => {
+    this._setTimeFunc = (e: WheelEvent) => {
       if (
         this._canvas !== null &&
         this._canvas.positionX < -12 &&
@@ -79,10 +79,12 @@ class MinuteColumn {
   public startCount(firstSecond: MinuteSecondType) {
     this._stopSetTime();
     setTimeout(() => {
-      this._decreaseOneMinute();
-      this._startCountIntervalID = setInterval(() => {
+      if (this.nowMinute !== 0) {
         this._decreaseOneMinute();
-      }, 60000);
+        this._startCountIntervalID = setInterval(() => {
+          this._decreaseOneMinute();
+        }, 60000);
+      }
     }, firstSecond * 1000);
   }
 
@@ -96,11 +98,11 @@ class MinuteColumn {
   }
 
   private _startSetTime() {
-    window.addEventListener("wheel", this._startSetTimeFunc);
+    window.addEventListener("wheel", this._setTimeFunc);
   }
 
   private _stopSetTime() {
-    window.removeEventListener("wheel", this._startSetTimeFunc);
+    window.removeEventListener("wheel", this._setTimeFunc);
   }
 
   public get nowMinute(): MinuteSecondType {

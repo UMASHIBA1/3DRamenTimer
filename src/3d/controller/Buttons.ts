@@ -12,10 +12,10 @@ class Buttons {
     this._startButton = new StartButton(camera);
     this._stopButton = new StopButton(camera);
     this._scene = scene;
-    this._activateStartButton();
+    this.activateStartButton();
   }
 
-  private _activateStartButton() {
+  public activateStartButton() {
     this._scene.add(this._startButton);
     this._startButton.activate();
     this.isStarted = false;
@@ -32,7 +32,7 @@ class Buttons {
     this.isStarted = true;
   }
 
-  private _deactivateStopButton() {
+  public deactivateStopButton() {
     this._scene.remove(this._stopButton);
     this._stopButton.deactivate();
   }
@@ -45,8 +45,8 @@ class Buttons {
     }
     if (this._stopButton.isClicked) {
       this._stopButton.isClicked = false;
-      this._deactivateStopButton();
-      this._activateStartButton();
+      this.deactivateStopButton();
+      this.activateStartButton();
     }
     this._startButton.tick();
     this._stopButton.tick();

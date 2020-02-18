@@ -19,6 +19,10 @@ class TimerButtonsController {
   }
 
   public tick() {
+    if (this._timer.isFinished) {
+      this._buttons.deactivateStopButton();
+      this._buttons.activateStartButton();
+    }
     if (this._buttons.isStarted && !this._timer.isStartedCount) {
       this._timer.startCount();
     }
