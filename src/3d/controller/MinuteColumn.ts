@@ -14,6 +14,7 @@ class MinuteColumn {
   private _minuteObjs: MinuteText[];
   private _rotationSetting: RotationSetting;
   private _startCountIntervalID: NodeJS.Timeout | null;
+  private _startCountTimeoutID: NodeJS.Timeout | null;
   private _setTimeFunc: (e: WheelEvent) => void;
   constructor() {
     this._group = new THREE.Group();
@@ -24,6 +25,7 @@ class MinuteColumn {
     this._minuteObjs = [];
     this._rotationSetting = { rotationFlag: false, direction: "" };
     this._startCountIntervalID = null;
+    this._startCountTimeoutID = null;
     this._setTimeFunc = (e: WheelEvent) => {
       if (
         this._canvas !== null &&
@@ -78,7 +80,7 @@ class MinuteColumn {
 
   public startCount(firstSecond: MinuteSecondType) {
     this._stopSetTime();
-    setTimeout(() => {
+    this._startCountTimeoutID = setTimeout(() => {
       if (this.nowMinute !== 0) {
         this._decreaseOneMinute();
         this._startCountIntervalID = setInterval(() => {
@@ -89,10 +91,14 @@ class MinuteColumn {
   }
 
   public stopCount() {
-    if (this._startCountIntervalID !== null) {
-      clearInterval(this._startCountIntervalID);
+    if (this._startCountTimeoutID !== null) {
+      clearTimeout(this._startCountTimeoutID);
     } else {
-      console.log("Minuteを刻んでいるIntervalIDが見つかりません");
+      if (this._startCountIntervalID !== null) {
+        clearInterval(this._startCountIntervalID);
+      } else {
+        console.log("Minuteを刻んでいるIntervalIDが見つかりません");
+      }
     }
     this._startSetTime();
   }

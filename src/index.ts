@@ -17,9 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scene.add(light);
 
-  // const timer = new Timer(canvas, scene, 30, 0);
-
-  // const buttons = new Buttons(scene, camera);
   const timerButtonsController = new TimerButtonsController(
     canvas,
     scene,
@@ -30,8 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i of multiRings) {
       i.tick();
     }
-    // timer.tick();
-    // buttons.tick();
     timerButtonsController.tick();
     renderer.render(scene, camera);
     requestAnimationFrame(tick);
