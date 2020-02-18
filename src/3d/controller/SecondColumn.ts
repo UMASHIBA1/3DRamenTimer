@@ -14,6 +14,7 @@ class SecondColumn {
   private _secondObjs: SecondText[];
   private _rotationSetting: RotationSetting;
   private _startCountIntervalID: NodeJS.Timeout | null;
+  private _startSetTimerFunc: (e: WheelEvent) => void;
   constructor() {
     this._group = new THREE.Group();
     this._canvas = null;
@@ -26,6 +27,18 @@ class SecondColumn {
       direction: ""
     };
     this._startCountIntervalID = null;
+    this._startSetTimerFunc = (e: WheelEvent) => {
+      if (
+        this._canvas !== null &&
+        this._canvas.positionX < 200 &&
+        this._canvas.positionX > 32
+      )
+        if (e.deltaY < 0) {
+          this._decreaseOneSecond();
+        } else {
+          this._increaseOneSecond();
+        }
+    };
   }
 
   private _increaseOneSecond() {
@@ -67,6 +80,7 @@ class SecondColumn {
   }
 
   public startCount() {
+    this._stopSetTime();
     this._startCountIntervalID = setInterval(() => {
       this._decreaseOneSecond();
     }, 1000);
@@ -82,18 +96,11 @@ class SecondColumn {
   }
 
   private _startSetTime() {
-    window.addEventListener("wheel", e => {
-      if (
-        this._canvas !== null &&
-        this._canvas.positionX < 200 &&
-        this._canvas.positionX > 32
-      )
-        if (e.deltaY < 0) {
-          this._decreaseOneSecond();
-        } else {
-          this._increaseOneSecond();
-        }
-    });
+    window.addEventListener("wheel", this._startSetTimerFunc);
+  }
+
+  private _stopSetTime() {
+    window.removeEventListener("wheel", this._startSetTimerFunc);
   }
 
   public get nowSecond() {
