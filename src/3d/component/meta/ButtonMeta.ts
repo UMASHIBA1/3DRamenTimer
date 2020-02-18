@@ -70,6 +70,7 @@ class ButtonMeta extends THREE.Mesh {
         if (this._isWaitPushEnd) {
           this._isPushEnd = true;
           this.isClicked = true;
+          this._isWaitPushEnd = false;
         }
       }
     };
@@ -83,12 +84,13 @@ class ButtonMeta extends THREE.Mesh {
       this._raycaster.setFromCamera(this._mouse, this._camera);
       if (this._isPushStart) {
         const intersect = this._raycaster.intersectObject(this);
+        console.log(intersect.length);
         if (intersect.length > 0) {
           this.geometry.dispose();
           this.geometry = new THREE.CylinderGeometry(3.4, 3.4, 0.2, 50, 50);
-          this._isPushStart = false;
           this._isWaitPushEnd = true;
         }
+        this._isPushStart = false;
       }
       if (this._isPushEnd) {
         this.geometry.dispose();
