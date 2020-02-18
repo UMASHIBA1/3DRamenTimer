@@ -105,7 +105,11 @@ class MinuteColumn {
 
   public get nowMinute(): MinuteSecondType {
     if (this._nowMinute !== null) {
-      return (this._nowMinute % 60) as MinuteSecondType;
+      const tmpMinute = this._nowMinute % 60;
+      if (tmpMinute < 0) {
+        return (60 + tmpMinute) as MinuteSecondType;
+      }
+      return tmpMinute as MinuteSecondType;
     } else {
       console.log("MinuteColumnで_nowMinuteが設定されていません");
       return 0;

@@ -22,10 +22,7 @@ class SecondColumn {
     this._nowSecond = null;
     this._startSecond = null;
     this._secondObjs = [];
-    this._rotationSetting = {
-      rotationFlag: false,
-      direction: ""
-    };
+    this._rotationSetting = { rotationFlag: false, direction: "" };
     this._startCountIntervalID = null;
     this._startSetTimerFunc = (e: WheelEvent) => {
       if (
@@ -106,7 +103,11 @@ class SecondColumn {
 
   public get nowSecond(): MinuteSecondType {
     if (this._nowSecond !== null) {
-      return (this._nowSecond % 60) as MinuteSecondType;
+      const tmpSecond = this._nowSecond % 60;
+      if (tmpSecond < 0) {
+        return (60 + tmpSecond) as MinuteSecondType;
+      }
+      return tmpSecond as MinuteSecondType;
     } else {
       console.log("SecondColumnで_nowSecondが設定されていません");
       return 0;
