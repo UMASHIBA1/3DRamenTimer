@@ -76,12 +76,14 @@ class MinuteColumn {
     this._startSetTime();
   }
 
-  public startCount() {
+  public startCount(firstSecond: MinuteSecondType) {
     this._stopSetTime();
-    this._startCountIntervalID = setInterval(() => {
+    setTimeout(() => {
       this._decreaseOneMinute();
-    }, 60000);
-    this._decreaseOneMinute();
+      this._startCountIntervalID = setInterval(() => {
+        this._decreaseOneMinute();
+      }, 60000);
+    }, firstSecond * 1000);
   }
 
   public stopCount() {
@@ -101,9 +103,9 @@ class MinuteColumn {
     window.removeEventListener("wheel", this._startSetTimeFunc);
   }
 
-  public get nowMinute() {
+  public get nowMinute(): MinuteSecondType {
     if (this._nowMinute !== null) {
-      return this._nowMinute % 60;
+      return (this._nowMinute % 60) as MinuteSecondType;
     } else {
       console.log("MinuteColumnで_nowMinuteが設定されていません");
       return 0;

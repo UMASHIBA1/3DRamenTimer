@@ -35,7 +35,8 @@ class Timer {
   }
 
   public startCount() {
-    this.minuteColumn.startCount();
+    const firstSecond = this.secondColumn.nowSecond;
+    this.minuteColumn.startCount(firstSecond);
     this.secondColumn.startCount();
     this.isStartedCount = true;
   }

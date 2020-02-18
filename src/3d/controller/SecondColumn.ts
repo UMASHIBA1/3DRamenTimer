@@ -104,9 +104,9 @@ class SecondColumn {
     window.removeEventListener("wheel", this._startSetTimerFunc);
   }
 
-  public get nowSecond() {
+  public get nowSecond(): MinuteSecondType {
     if (this._nowSecond !== null) {
-      return this._nowSecond % 60;
+      return (this._nowSecond % 60) as MinuteSecondType;
     } else {
       console.log("SecondColumnで_nowSecondが設定されていません");
       return 0;
