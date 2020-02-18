@@ -90,6 +90,7 @@ class MinuteColumn {
     } else {
       console.log("Minuteを刻んでいるIntervalIDが見つかりません");
     }
+    this._startSetTime();
   }
 
   private _startSetTime() {

@@ -93,6 +93,7 @@ class SecondColumn {
     } else {
       console.log("Secondを刻んでいるIntervalIDが見つかりません");
     }
+    this._startSetTime();
   }
 
   private _startSetTime() {
