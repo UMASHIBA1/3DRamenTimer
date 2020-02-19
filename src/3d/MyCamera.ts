@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import easing from "./system/easing";
+import { risedLocation } from "src/settings/finishAnimation";
 
 const resizeCameraAspect = (camera: THREE.PerspectiveCamera) => {
   const width = window.innerWidth;
@@ -8,7 +9,6 @@ const resizeCameraAspect = (camera: THREE.PerspectiveCamera) => {
   camera.updateProjectionMatrix();
 };
 
-const risedLocation = 500;
 const defaultLocation = 0;
 const cameraPositionZ = 500;
 
