@@ -4,8 +4,8 @@ import createScene from "./3d/createScene";
 import createLight from "./3d/createLight";
 import Canvas from "./Canvas";
 import createManyRings from "./3d/createManyRings";
-import TimerButtonsController from "./3d/controller/TimerButtonsController";
-import MyCamera from "./3d/createCamera";
+import TimerButtonsCameraController from "./3d/controller/TimerButtonsCameraController";
+import MyCamera from "./3d/MyCamera";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = new Canvas();
@@ -17,16 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scene.add(light);
 
-  const timerButtonsController = new TimerButtonsController(
+  const timerButtonsController = new TimerButtonsCameraController(
     canvas,
     scene,
-    myCamera.camera
+    myCamera
   );
 
   const tick = () => {
     for (let i of multiRings) {
       i.tick();
     }
+    myCamera.tick();
     timerButtonsController.tick();
     renderer.render(scene, myCamera.camera);
     requestAnimationFrame(tick);

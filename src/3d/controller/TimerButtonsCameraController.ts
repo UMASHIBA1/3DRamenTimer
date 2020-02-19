@@ -3,25 +3,37 @@ import Timer from "./Timer";
 import Buttons from "./Buttons";
 import Canvas from "../../Canvas";
 import MinuteSecondType from "../../types/MinuteSecondType";
+import MyCamera from "../MyCamera";
 
-class TimerButtonsController {
+class TimerButtonsCameraController {
   private _timer: Timer;
   private _buttons: Buttons;
+  private _myCamera: MyCamera;
+  private _isWaitingRiseCamera: boolean;
   constructor(
     canvas: Canvas,
     scene: THREE.Scene,
-    camera: THREE.Camera,
+    myCamera: MyCamera,
     firstMinute: MinuteSecondType = 3,
     firstSecond: MinuteSecondType = 0
   ) {
     this._timer = new Timer(canvas, scene, firstMinute, firstSecond);
-    this._buttons = new Buttons(scene, camera);
+    this._buttons = new Buttons(scene, myCamera.camera);
+    this._myCamera = myCamera;
+    this._isWaitingRiseCamera = true;
   }
 
   public tick() {
     if (this._timer.isFinished) {
       this._buttons.deactivateStopButton();
       this._buttons.activateStartButton();
+      if (this._isWaitingRiseCamera) {
+        // ユーザーがカウントが終わったと理解しやすくするため00:00になってからCameraを上昇させる前に800ms待つ
+        setTimeout(() => {
+          this._myCamera.riseCamera();
+        }, 800);
+        this._isWaitingRiseCamera = false;
+      }
     }
     if (this._buttons.isStarted && !this._timer.isStartedCount) {
       this._timer.startCount();
@@ -34,4 +46,4 @@ class TimerButtonsController {
   }
 }
 
-export default TimerButtonsController;
+export default TimerButtonsCameraController;
