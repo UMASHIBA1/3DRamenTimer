@@ -1,1 +1,1 @@
-export const risedLocation = 500;
+export const risedLocation = 700;
