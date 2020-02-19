@@ -43,6 +43,10 @@ class MultiRing {
     this._group.scale.y = y;
   }
 
+  public get scaleXY() {
+    return { x: this._group.scale.x, y: this._group.scale.y };
+  }
+
   public tick() {
     for (let i of this._oneRings) {
       i.tick();
