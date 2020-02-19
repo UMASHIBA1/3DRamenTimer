@@ -38,6 +38,11 @@ class MultiRing {
     scene.add(this._group);
   }
 
+  public setScaleXY(x: number, y: number) {
+    this._group.scale.x = x;
+    this._group.scale.y = y;
+  }
+
   public tick() {
     for (let i of this._oneRings) {
       i.tick();
