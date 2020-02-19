@@ -34,8 +34,8 @@ class MultiRing {
     this._group.position.y = y;
   }
 
-  public get multiRing() {
-    return this._group;
+  public addToScene(scene: THREE.Scene) {
+    scene.add(this._group);
   }
 
   public tick() {

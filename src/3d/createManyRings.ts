@@ -40,7 +40,7 @@ export default (scene: THREE.Scene) => {
   multiRings.push(multiRing9);
 
   for (let i of multiRings) {
-    scene.add(i.multiRing);
+    i.addToScene(scene);
   }
 
   return multiRings;
