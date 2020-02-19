@@ -94,11 +94,12 @@ class MinuteColumn {
     if (this._startCountTimeoutID !== null) {
       clearTimeout(this._startCountTimeoutID);
     } else {
-      if (this._startCountIntervalID !== null) {
-        clearInterval(this._startCountIntervalID);
-      } else {
-        console.log("Minuteを刻んでいるIntervalIDが見つかりません");
-      }
+      console.log("Minuteを一分減らすTimeoutIDが見つかりません");
+    }
+    if (this._startCountIntervalID !== null) {
+      clearInterval(this._startCountIntervalID);
+    } else {
+      console.log("Minuteを刻んでいるIntervalIDが見つかりません");
     }
     this._startSetTime();
   }
