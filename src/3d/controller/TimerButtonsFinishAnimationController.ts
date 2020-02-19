@@ -6,10 +6,9 @@ import MinuteSecondType from "../../types/MinuteSecondType";
 import MyCamera from "../MyCamera";
 import FinishAnimation from "./FinishAnimation";
 
-class TimerButtonsCameraController {
+class TimerButtonsFinishAnimationController {
   private _timer: Timer;
   private _buttons: Buttons;
-  private _myCamera: MyCamera;
   private _finishAnimation: FinishAnimation;
   private _isWaitingRiseCamera: boolean;
   constructor(
@@ -21,7 +20,6 @@ class TimerButtonsCameraController {
   ) {
     this._timer = new Timer(canvas, scene, firstMinute, firstSecond);
     this._buttons = new Buttons(scene, myCamera.camera);
-    this._myCamera = myCamera;
     this._finishAnimation = new FinishAnimation(scene, myCamera);
     this._isWaitingRiseCamera = true;
   }
@@ -50,4 +48,4 @@ class TimerButtonsCameraController {
   }
 }
 
-export default TimerButtonsCameraController;
+export default TimerButtonsFinishAnimationController;

@@ -4,7 +4,7 @@ import createScene from "./3d/createScene";
 import createLight from "./3d/createLight";
 import Canvas from "./Canvas";
 import createManyRings from "./3d/createManyRings";
-import TimerButtonsCameraController from "./3d/controller/TimerButtonsCameraController";
+import TimerButtonsFinishAnimationController from "./3d/controller/TimerButtonsFinishAnimationController";
 import MyCamera from "./3d/MyCamera";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scene.add(light);
 
-  const timerButtonsController = new TimerButtonsCameraController(
+  const timerButtonsController = new TimerButtonsFinishAnimationController(
     canvas,
     scene,
     myCamera
