@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import easing from "./system/easing";
-import { risedLocation } from "src/settings/finishAnimation";
+import { risedLocation } from "../settings/finishAnimation";
 
 const resizeCameraAspect = (camera: THREE.PerspectiveCamera) => {
   const width = window.innerWidth;
@@ -32,6 +32,12 @@ class MyCamera {
 
   public riseCamera() {
     this._transitionDirection = "rise";
+    return new Promise(resolve => {
+      // カメラが上昇しきるまでの時間として800ms待つ
+      setTimeout(() => {
+        resolve();
+      }, 800);
+    });
   }
 
   public descentCamera() {
