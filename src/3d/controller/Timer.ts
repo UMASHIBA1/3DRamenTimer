@@ -51,6 +51,7 @@ class Timer {
 
   public get isFinished() {
     if (
+      this.isStartedCount &&
       this.secondColumn.nowSecond === 0 &&
       this.minuteColumn.nowMinute === 0
     ) {
