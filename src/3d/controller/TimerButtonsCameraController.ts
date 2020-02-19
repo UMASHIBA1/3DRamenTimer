@@ -22,7 +22,7 @@ class TimerButtonsCameraController {
     this._timer = new Timer(canvas, scene, firstMinute, firstSecond);
     this._buttons = new Buttons(scene, myCamera.camera);
     this._myCamera = myCamera;
-    this._finishAnimation = new FinishAnimation(scene);
+    this._finishAnimation = new FinishAnimation(scene, myCamera);
     this._isWaitingRiseCamera = true;
   }
 
@@ -33,9 +33,7 @@ class TimerButtonsCameraController {
       if (this._isWaitingRiseCamera) {
         // ユーザーがカウントが終わったと理解しやすくするため00:00になってからCameraを上昇させる前に800ms待つ
         setTimeout(() => {
-          this._myCamera.riseCamera().then(() => {
-            this._finishAnimation.startAnimation();
-          });
+          this._finishAnimation.startAnimation();
         }, 800);
         this._isWaitingRiseCamera = false;
       }
