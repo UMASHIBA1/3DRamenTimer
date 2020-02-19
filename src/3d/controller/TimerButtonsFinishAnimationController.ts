@@ -5,11 +5,13 @@ import Canvas from "../../Canvas";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import MyCamera from "../MyCamera";
 import FinishAnimation from "./FinishAnimation";
+import FinishTextController from "./FinishTextController";
 
 class TimerButtonsFinishAnimationController {
   private _timer: Timer;
   private _buttons: Buttons;
   private _finishAnimation: FinishAnimation;
+  private _finishTextController: FinishTextController;
   private _isWaitingRiseCamera: boolean;
   constructor(
     canvas: Canvas,
@@ -21,6 +23,7 @@ class TimerButtonsFinishAnimationController {
     this._timer = new Timer(canvas, scene, firstMinute, firstSecond);
     this._buttons = new Buttons(scene, myCamera.camera);
     this._finishAnimation = new FinishAnimation(scene, myCamera);
+    this._finishTextController = new FinishTextController(scene);
     this._isWaitingRiseCamera = true;
   }
 
