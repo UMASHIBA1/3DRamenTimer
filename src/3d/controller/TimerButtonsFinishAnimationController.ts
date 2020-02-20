@@ -32,7 +32,7 @@ class TimerButtonsFinishAnimationController {
       if (this._isWaitingRiseCamera) {
         // ユーザーがカウントが終わったと理解しやすくするため00:00になってからCameraを上昇させる前に800ms待つ
         setTimeout(() => {
-          this._finishAnimation.startAnimation();
+          this._finishAnimation.startAppearAnimation();
         }, 800);
         this._isWaitingRiseCamera = false;
       }

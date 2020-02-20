@@ -24,7 +24,7 @@ class FinishAnimation {
     scene.add(this._okButton);
   }
 
-  public startAnimation() {
+  public startAppearAnimation() {
     this._myCamera.riseCamera().then(() => {
       this._startRedRingAnimation = true;
       // RedRingのアニメーションにかかる時間を600msとしてFinishTextのアニメーションを待たせる
@@ -33,6 +33,13 @@ class FinishAnimation {
           this._okButton.startAppearAnimation();
         });
       }, 600);
+    });
+  }
+
+  public _startDisappearAnimation() {
+    this._okButton.startDisappearAnimation().then(() => {
+      // this._finishTextController
+      console.log("hide");
     });
   }
 
@@ -46,6 +53,10 @@ class FinishAnimation {
       if (x >= 1 || y >= 1) {
         this._startRedRingAnimation = false;
       }
+    }
+    if (this._okButton.isClicked) {
+      this._okButton.isClicked = false;
+      this._startDisappearAnimation();
     }
   }
 }

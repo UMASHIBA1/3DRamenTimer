@@ -4,6 +4,9 @@ import ButtonMeta from "./meta/ButtonMeta";
 import easing from "../system/easing";
 import { risedLocation } from "../../settings/finishAnimation";
 
+const defaultPositionY = 650;
+const risedPositionY = risedLocation - 16;
+
 class OKButton extends ButtonMeta {
   private _transitionDirection: "rise" | "descent" | "stopping";
   constructor(camera: THREE.Camera) {
@@ -13,7 +16,7 @@ class OKButton extends ButtonMeta {
       map: texture
     });
     super(camera, material);
-    this.position.y = 650;
+    this.position.y = defaultPositionY;
     this.scale.x = 0;
     this.scale.y = 0;
     this._transitionDirection = "stopping";
@@ -26,9 +29,28 @@ class OKButton extends ButtonMeta {
     this._transitionDirection = "rise";
   }
 
+  public startDisappearAnimation() {
+    this._transitionDirection = "descent";
+    return new Promise(resolve => {
+      setTimeout(() => {
+        return resolve();
+      }, 200);
+    });
+  }
+
   public tick() {
     if (this._transitionDirection === "rise") {
-      this.position.y += easing(this.position.y, risedLocation - 16);
+      this.position.y += easing(this.position.y, risedPositionY);
+      if (risedPositionY - this.position.y < 0.1) {
+        this._transitionDirection = "stopping";
+      }
+    } else if (this._transitionDirection === "descent") {
+      this.position.y += easing(this.position.y, defaultPositionY);
+      if (this.position.y - defaultPositionY < 0.1) {
+        this._transitionDirection = "stopping";
+        this.scale.x = 0;
+        this.scale.y = 0;
+      }
     }
     super.tick();
   }
