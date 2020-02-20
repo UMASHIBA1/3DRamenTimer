@@ -1,19 +1,19 @@
 import * as THREE from "three";
 import MultiRing from "./MultiRing";
 import { risedLocation } from "../../settings/finishAnimation";
-import easeOut from "../system/easing";
+import easing from "../system/easing";
 import MyCamera from "../MyCamera";
 import FinishTextController from "./FinishTextController";
 import OKButton from "../component/OKButton";
 
 class FinishAnimation {
-  private _startRedRingAnimation: boolean;
+  private _redRingAnimationDirection: "expand" | "minimum" | "stopping";
   private _ring: MultiRing;
   private _finishTextController: FinishTextController;
   private _myCamera: MyCamera;
   private _okButton: OKButton;
   constructor(scene: THREE.Scene, myCamera: MyCamera) {
-    this._startRedRingAnimation = false;
+    this._redRingAnimationDirection = "stopping";
     this._ring = new MultiRing(400, 10, 30, 10, 0.7);
     this._ring.setPositionXY(0, risedLocation);
     this._ring.setScaleXY(0, 0);
@@ -26,7 +26,7 @@ class FinishAnimation {
 
   public startAppearAnimation() {
     this._myCamera.riseCamera().then(() => {
-      this._startRedRingAnimation = true;
+      this._redRingAnimationDirection = "expand";
       // RedRingのアニメーションにかかる時間を600msとしてFinishTextのアニメーションを待たせる
       setTimeout(() => {
         this._finishTextController.startAppearAnimation().then(() => {
@@ -39,7 +39,11 @@ class FinishAnimation {
   public _startDisappearAnimation() {
     this._okButton.startDisappearAnimation().then(() => {
       this._finishTextController.startDisappearAnimation().then(() => {
-        console.log("disappear");
+        this._redRingAnimationDirection = "minimum";
+        // redRingのアニメーションにかかる時間を460msとして計算
+        setTimeout(() => {
+          console.log("disappearRedring");
+        }, 460);
       });
     });
   }
@@ -48,11 +52,17 @@ class FinishAnimation {
     this._finishTextController.tick();
     this._ring.tick();
     this._okButton.tick();
-    if (this._startRedRingAnimation) {
+    if (this._redRingAnimationDirection === "expand") {
       const { x, y } = this._ring.scaleXY;
-      this._ring.setScaleXY(x + easeOut(x, 1), y + easeOut(y, 1));
+      this._ring.setScaleXY(x + easing(x, 1), y + easing(y, 1));
       if (x >= 1 || y >= 1) {
-        this._startRedRingAnimation = false;
+        this._redRingAnimationDirection = "stopping";
+      }
+    } else if (this._redRingAnimationDirection === "minimum") {
+      const { x, y } = this._ring.scaleXY;
+      this._ring.setScaleXY(x + easing(x, 0, 0.2), y + easing(y, 0, 0.2));
+      if (x < 0.001 || y < 0.001) {
+        this._redRingAnimationDirection = "stopping";
       }
     }
     if (this._okButton.isClicked) {
