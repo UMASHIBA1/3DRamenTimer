@@ -17,6 +17,7 @@ class OKButton extends ButtonMeta {
     this.scale.x = 0;
     this.scale.y = 0;
     this._transitionDirection = "stopping";
+    this.activate();
   }
 
   public startAppearAnimation() {
@@ -25,10 +26,11 @@ class OKButton extends ButtonMeta {
     this._transitionDirection = "rise";
   }
 
-  tick() {
+  public tick() {
     if (this._transitionDirection === "rise") {
       this.position.y += easing(this.position.y, risedLocation - 16);
     }
+    super.tick();
   }
 }
 export default OKButton;
