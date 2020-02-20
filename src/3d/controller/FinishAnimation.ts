@@ -40,10 +40,10 @@ class FinishAnimation {
     this._okButton.startDisappearAnimation().then(() => {
       this._finishTextController.startDisappearAnimation().then(() => {
         this._redRingAnimationDirection = "minimum";
-        // redRingのアニメーションにかかる時間を460msとして計算
+        // redRingのアニメーションにかかる時間を600msとして計算
         setTimeout(() => {
-          console.log("disappearRedring");
-        }, 460);
+          this._myCamera.descentCamera();
+        }, 600);
       });
     });
   }
