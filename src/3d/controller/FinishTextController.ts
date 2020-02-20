@@ -39,6 +39,11 @@ class FinishTextController {
 
   public startAnimation() {
     this._isStartAnimation = true;
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 600);
+    });
   }
 
   public tick() {
