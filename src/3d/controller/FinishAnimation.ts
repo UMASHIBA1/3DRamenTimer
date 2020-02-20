@@ -29,7 +29,7 @@ class FinishAnimation {
       this._startRedRingAnimation = true;
       // RedRingのアニメーションにかかる時間を600msとしてFinishTextのアニメーションを待たせる
       setTimeout(() => {
-        this._finishTextController.startAnimation().then(() => {
+        this._finishTextController.startAppearAnimation().then(() => {
           this._okButton.startAppearAnimation();
         });
       }, 600);
@@ -38,8 +38,9 @@ class FinishAnimation {
 
   public _startDisappearAnimation() {
     this._okButton.startDisappearAnimation().then(() => {
-      // this._finishTextController
-      console.log("hide");
+      this._finishTextController.startDisappearAnimation().then(() => {
+        console.log("disappear");
+      });
     });
   }
 

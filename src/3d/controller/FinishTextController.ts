@@ -6,7 +6,7 @@ import easing from "../system/easing";
 class FinishTextController {
   private _finishTexts: FinishText[];
   private _group: THREE.Group;
-  private _isStartAnimation: boolean;
+  private _animationDirection: "expand" | "minimum" | "stopping";
   constructor(scene: THREE.Scene) {
     this._finishTexts = [];
     this._group = new THREE.Group();
@@ -34,11 +34,11 @@ class FinishTextController {
     this._group.position.z = 100;
     this._group.scale.x = 0;
     this._group.scale.y = 0;
-    this._isStartAnimation = false;
+    this._animationDirection = "stopping";
   }
 
-  public startAnimation() {
-    this._isStartAnimation = true;
+  public startAppearAnimation() {
+    this._animationDirection = "expand";
     return new Promise(resolve => {
       setTimeout(() => {
         resolve();
@@ -46,12 +46,27 @@ class FinishTextController {
     });
   }
 
+  public startDisappearAnimation() {
+    this._animationDirection = "minimum";
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 450);
+    });
+  }
+
   public tick() {
-    if (this._isStartAnimation) {
+    if (this._animationDirection === "expand") {
       this._group.scale.x += easing(this._group.scale.x, 1, 0.07);
       this._group.scale.y += easing(this._group.scale.y, 1, 0.07);
       if (1 - this._group.scale.x < 0.001 || 1 - this._group.scale.y < 0.001) {
-        this._isStartAnimation = false;
+        this._animationDirection = "stopping";
+      }
+    } else if (this._animationDirection === "minimum") {
+      this._group.scale.x += easing(this._group.scale.x, 0, 0.18);
+      this._group.scale.y += easing(this._group.scale.x, 0, 0.18);
+      if (this._group.scale.x < 0.001 || this._group.scale.y < 0.001) {
+        this._animationDirection = "stopping";
       }
     }
   }
