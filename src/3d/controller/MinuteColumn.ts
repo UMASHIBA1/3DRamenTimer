@@ -87,7 +87,7 @@ class MinuteColumn {
           this._decreaseOneMinute();
         }, 60000);
       }
-    }, firstSecond * 1000);
+    }, (firstSecond + 1) * 1000);
   }
 
   public stopCount() {
