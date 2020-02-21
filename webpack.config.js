@@ -8,11 +8,10 @@ module.exports = {
   entry: "./src/index.ts",
   output: {
     filename: "bundle.js",
-    path: `${outputPath}/js`
+    path: `${outputPath}`
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.ts/,
         use: "ts-loader",
         exclude: /node_modules/
