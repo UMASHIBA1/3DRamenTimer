@@ -27,6 +27,11 @@ class OKButton extends ButtonMeta {
     this.scale.x = 1;
     this.scale.y = 1;
     this._transitionDirection = "rise";
+    return new Promise(resolve => {
+      setTimeout(() => {
+        return resolve();
+      }, 800);
+    });
   }
 
   public startDisappearAnimation() {
