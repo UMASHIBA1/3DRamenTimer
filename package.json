@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "yarn build && firebase deploy"
   },
   "devDependencies": {
     "css-loader": "^3.4.2",
