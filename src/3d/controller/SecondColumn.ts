@@ -81,7 +81,6 @@ class SecondColumn {
     this._startCountIntervalID = setInterval(() => {
       this._decreaseOneSecond();
     }, 1000);
-    this._decreaseOneSecond();
   }
 
   public stopCount() {
