@@ -24,14 +24,17 @@ class Timer {
     this.scene = scene;
     this.nowMinute = minute;
     this.nowSecond = second;
+
     const colonText = new ColonText();
     const minuteColumn = new MinuteColumn();
     const secondColumn = new SecondColumn();
     this.scene.add(colonText);
     minuteColumn.init(this.canvas, this.scene, this.nowMinute);
     secondColumn.init(this.canvas, this.scene, this.nowSecond);
+
     this.minuteColumn = minuteColumn;
     this.secondColumn = secondColumn;
+
     this.isWaitingStopCountAfterFinish = true;
     this.isStartedCount = false;
   }
@@ -58,6 +61,11 @@ class Timer {
       return true;
     }
     return false;
+  }
+
+  public resetTimerState() {
+    this.isWaitingStopCountAfterFinish = true;
+    this.isStartedCount = false;
   }
 
   public tick() {

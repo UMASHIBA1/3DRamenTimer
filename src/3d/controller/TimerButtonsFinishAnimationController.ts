@@ -5,7 +5,6 @@ import Canvas from "../../Canvas";
 import MinuteSecondType from "../../types/MinuteSecondType";
 import MyCamera from "../MyCamera";
 import FinishAnimation from "./FinishAnimation";
-import FinishTextController from "./FinishTextController";
 
 class TimerButtonsFinishAnimationController {
   private _timer: Timer;
