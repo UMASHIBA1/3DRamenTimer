@@ -17,8 +17,8 @@ class OKButton extends ButtonMeta {
     });
     super(camera, material);
     this.position.y = defaultPositionY;
-    this.scale.x = 0;
-    this.scale.y = 0;
+    this.scale.x = 0.0001;
+    this.scale.y = 0.0001;
     this._transitionDirection = "stopping";
     this.activate();
   }
@@ -53,8 +53,8 @@ class OKButton extends ButtonMeta {
       this.position.y += easing(this.position.y, defaultPositionY);
       if (this.position.y - defaultPositionY < 0.1) {
         this._transitionDirection = "stopping";
-        this.scale.x = 0;
-        this.scale.y = 0;
+        this.scale.x = 0.0001;
+        this.scale.y = 0.0001;
       }
     }
     super.tick();

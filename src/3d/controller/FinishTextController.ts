@@ -32,8 +32,8 @@ class FinishTextController {
     this._group.position.x = 0;
     this._group.position.y = risedLocation - 8;
     this._group.position.z = 100;
-    this._group.scale.x = 0;
-    this._group.scale.y = 0;
+    this._group.scale.x = 0.0001;
+    this._group.scale.y = 0.0001;
     this._animationDirection = "stopping";
   }
 

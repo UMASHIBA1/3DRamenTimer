@@ -16,7 +16,7 @@ class FinishAnimation {
     this._redRingAnimationDirection = "stopping";
     this._ring = new MultiRing(400, 10, 30, 10, 0.7);
     this._ring.setPositionXY(0, risedLocation);
-    this._ring.setScaleXY(0, 0);
+    this._ring.setScaleXY(0.0001, 0.0001);
     this._ring.addToScene(scene);
     this._finishTextController = new FinishTextController(scene);
     this._myCamera = myCamera;
@@ -64,7 +64,10 @@ class FinishAnimation {
       }
     } else if (this._redRingAnimationDirection === "minimum") {
       const { x, y } = this._ring.scaleXY;
-      this._ring.setScaleXY(x + easing(x, 0, 0.2), y + easing(y, 0, 0.2));
+      this._ring.setScaleXY(
+        x + easing(x, 0.0001, 0.2),
+        y + easing(y, 0.0001, 0.2)
+      );
       if (x < 0.001 || y < 0.001) {
         this._redRingAnimationDirection = "stopping";
       }
