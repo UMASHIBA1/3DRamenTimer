@@ -25,14 +25,18 @@ class FinishAnimation {
   }
 
   public startAppearAnimation() {
-    this._myCamera.riseCamera().then(() => {
-      this._redRingAnimationDirection = "expand";
-      // RedRingのアニメーションにかかる時間を600msとしてFinishTextのアニメーションを待たせる
-      setTimeout(() => {
-        this._finishTextController.startAppearAnimation().then(() => {
-          this._okButton.startAppearAnimation();
-        });
-      }, 600);
+    return new Promise(resolve => {
+      this._myCamera.riseCamera().then(() => {
+        this._redRingAnimationDirection = "expand";
+        // RedRingのアニメーションにかかる時間を600msとしてFinishTextのアニメーションを待たせる
+        setTimeout(() => {
+          this._finishTextController.startAppearAnimation().then(() => {
+            this._okButton.startAppearAnimation().then(() => {
+              return resolve();
+            });
+          });
+        }, 600);
+      });
     });
   }
 
