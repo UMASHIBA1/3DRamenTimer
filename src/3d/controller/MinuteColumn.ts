@@ -31,6 +31,7 @@ class MinuteColumn {
     this._rotationSetting = { rotationFlag: false, direction: "" };
     this._startCountIntervalID = null;
     this._startCountTimeoutID = null;
+
     this._setTimeFunc = (e: WheelEvent) => {
       if (
         this._canvas !== null &&

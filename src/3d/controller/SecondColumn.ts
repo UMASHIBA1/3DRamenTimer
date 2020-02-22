@@ -4,6 +4,10 @@ import SecondText from "../component/SecondText";
 import easing from "../system/easing";
 import Canvas from "../../Canvas";
 import RotationSetting from "../../types/RotationSetting";
+import {
+  calcPositionXFromCenter,
+  calcPositionYFromCenter
+} from "../system/calcPositionFromCenter";
 
 class SecondColumn {
   private _group: THREE.Group;
@@ -15,6 +19,7 @@ class SecondColumn {
   private _rotationSetting: RotationSetting;
   private _startCountIntervalID: NodeJS.Timeout | null;
   private _setTimeFunc: (e: WheelEvent) => void;
+  private _setTimeFuncMobile: (e: TouchEvent) => void;
   constructor() {
     this._group = new THREE.Group();
     this._canvas = null;
@@ -24,6 +29,7 @@ class SecondColumn {
     this._secondObjs = [];
     this._rotationSetting = { rotationFlag: false, direction: "" };
     this._startCountIntervalID = null;
+
     this._setTimeFunc = (e: WheelEvent) => {
       if (
         this._canvas !== null &&
@@ -35,6 +41,32 @@ class SecondColumn {
         } else {
           this._increaseOneSecond();
         }
+    };
+
+    this._setTimeFuncMobile = (e: TouchEvent) => {
+      const x = calcPositionXFromCenter(e.touches[0].clientX);
+      let previousY = calcPositionYFromCenter(e.touches[0].clientY);
+
+      const _judgeRotate = (e: TouchEvent) => {
+        const nowY = calcPositionYFromCenter(e.touches[0].clientY);
+        if (nowY - previousY > 30) {
+          this._decreaseOneSecond();
+          previousY = nowY;
+        } else if (previousY - nowY > 30) {
+          this._increaseOneSecond();
+          previousY = nowY;
+        }
+      };
+
+      const _disableJudgeRotate = () => {
+        window.removeEventListener("touchmove", _judgeRotate);
+        window.removeEventListener("touchend", _disableJudgeRotate);
+      };
+
+      if (x < 200 && x > 32) {
+        window.addEventListener("touchmove", _judgeRotate);
+        window.addEventListener("touchend", _disableJudgeRotate);
+      }
     };
   }
 
@@ -94,10 +126,12 @@ class SecondColumn {
 
   private _startSetTime() {
     window.addEventListener("wheel", this._setTimeFunc);
+    window.addEventListener("touchstart", this._setTimeFuncMobile);
   }
 
   private _stopSetTime() {
     window.removeEventListener("wheel", this._setTimeFunc);
+    window.removeEventListener("touchstart", this._setTimeFuncMobile);
   }
 
   public get nowSecond(): MinuteSecondType {
