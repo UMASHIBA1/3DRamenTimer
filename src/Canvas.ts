@@ -1,12 +1,7 @@
-const calcPositionXFromCenter = (clientX: number) => {
-  const centerWidth = window.innerWidth / 2;
-  return clientX - centerWidth;
-};
-
-const calcPositionYFromCenter = (clientY: number) => {
-  const centerHeight = window.innerHeight / 2;
-  return clientY - centerHeight;
-};
+import {
+  calcPositionXFromCenter,
+  calcPositionYFromCenter
+} from "./3d/system/calcPositionFromCenter";
 
 export default class Canvas {
   private _canvas: HTMLElement | null;
