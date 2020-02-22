@@ -51,10 +51,10 @@ class MinuteColumn {
 
       const _judgeRotate = (e: TouchEvent) => {
         const nowY = calcPositionYFromCenter(e.touches[0].clientY);
-        if (nowY - previousY > 30) {
+        if (nowY - previousY > 45) {
           this._decreaseOneMinute();
           previousY = nowY;
-        } else if (previousY - nowY > 30) {
+        } else if (previousY - nowY > 45) {
           this._increaseOneMinute();
           previousY = nowY;
         }
