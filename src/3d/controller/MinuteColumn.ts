@@ -136,12 +136,12 @@ class MinuteColumn {
   }
 
   private _startSetTime() {
-    // window.addEventListener("wheel", this._setTimeFunc);
+    window.addEventListener("wheel", this._setTimeFunc);
     window.addEventListener("touchstart", this._setTimeFuncMobile);
   }
 
   private _stopSetTime() {
-    // window.removeEventListener("wheel", this._setTimeFunc);
+    window.removeEventListener("wheel", this._setTimeFunc);
     window.removeEventListener("touchstart", this._setTimeFuncMobile);
   }
 
