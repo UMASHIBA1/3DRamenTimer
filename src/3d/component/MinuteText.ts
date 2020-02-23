@@ -4,6 +4,7 @@ import MinuteSecondType from "../../types/MinuteSecondType";
 import calcTextLocation from "../system/calcTextLocation";
 
 class MinuteText extends THREE.Mesh {
+  public readonly minute: MinuteSecondType;
   constructor(minute: MinuteSecondType, nowMinute: MinuteSecondType) {
     const font = new THREE.Font(regularFont);
     const strMinute =
@@ -24,6 +25,8 @@ class MinuteText extends THREE.Mesh {
     this.position.y = positionY;
     this.position.z = positionZ;
     this.rotation.x = rotationX;
+
+    this.minute = minute;
   }
 
   public changeMaterialColorToRed() {
