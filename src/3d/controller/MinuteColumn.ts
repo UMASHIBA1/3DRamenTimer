@@ -72,6 +72,20 @@ class MinuteColumn {
     };
   }
 
+  public init(canvas: Canvas, scene: THREE.Scene, nowMinute: MinuteSecondType) {
+    this._scene = scene;
+    this._canvas = canvas;
+    this._nowMinute = nowMinute;
+    this._startMinute = nowMinute;
+    for (let i = 0; i < 60; i++) {
+      const minuteText = new MinuteText(i as MinuteSecondType, this._nowMinute);
+      this._minuteObjs.push(minuteText);
+      this._group.add(minuteText);
+    }
+    this._scene.add(this._group);
+    this._startSetTime();
+  }
+
   private _increaseOneMinute() {
     if (this._nowMinute != null) {
       this._rotationSetting = {
@@ -96,24 +110,10 @@ class MinuteColumn {
     }
   }
 
-  public init(canvas: Canvas, scene: THREE.Scene, nowMinute: MinuteSecondType) {
-    this._scene = scene;
-    this._canvas = canvas;
-    this._nowMinute = nowMinute;
-    this._startMinute = nowMinute;
-    for (let i = 0; i < 60; i++) {
-      const minuteText = new MinuteText(i as MinuteSecondType, this._nowMinute);
-      this._minuteObjs.push(minuteText);
-      this._group.add(minuteText);
-    }
-    this._scene.add(this._group);
-    this._startSetTime();
-  }
-
   public startCount(firstSecond: MinuteSecondType) {
     this._stopSetTime();
     this._startCountTimeoutID = setTimeout(() => {
-      if (this.nowMinute !== 0) {
+      if (this.nowMinute() !== 0) {
         this._decreaseOneMinute();
         this._startCountIntervalID = setInterval(() => {
           this._decreaseOneMinute();
@@ -146,9 +146,12 @@ class MinuteColumn {
     window.removeEventListener("touchstart", this._setTimeFuncMobile);
   }
 
-  public get nowMinute(): MinuteSecondType {
-    if (this._nowMinute !== null) {
-      const tmpMinute = this._nowMinute % 60;
+  // this._nowMinuteは-69とか102とかの値になっているから%60して時間としての数字を算出する
+  public nowMinute(
+    _nowMinute: MinuteSecondType | null = this._nowMinute
+  ): MinuteSecondType {
+    if (_nowMinute !== null) {
+      const tmpMinute = _nowMinute % 60;
       if (tmpMinute < 0) {
         return (60 + tmpMinute) as MinuteSecondType;
       }
