@@ -80,6 +80,9 @@ class SecondColumn {
         i as MinuteSecondType,
         this._nowSecond as MinuteSecondType
       );
+      if (i === nowSecond) {
+        secondText.changeMaterialColorToRed();
+      }
       this._secondObjs.push(secondText);
       this._group.add(secondText);
     }
@@ -89,6 +92,10 @@ class SecondColumn {
 
   private _increaseOneSecond() {
     if (this._nowSecond != null) {
+      this._secondObjs[this.nowSecond()].changeMaterialColorToWhite();
+      this._secondObjs[
+        this.nowSecond(this._nowSecond + 1)
+      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "down"
@@ -101,6 +108,10 @@ class SecondColumn {
 
   private _decreaseOneSecond() {
     if (this._nowSecond != null) {
+      this._secondObjs[this.nowSecond()].changeMaterialColorToWhite();
+      this._secondObjs[
+        this.nowSecond(this._nowSecond - 1)
+      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "up"
