@@ -1,8 +1,8 @@
 const path = require("path");
-
+const workBoxWebpackPlugin = require("workbox-webpack-plugin");
 const outputPath = path.resolve(__dirname, "public");
 
-// []webpackを使いたかったらyarn webpackでいける
+// []webpackを使いたかったらyarn buildでいける
 module.exports = {
   mode: "development",
   entry: "./src/index.ts",
@@ -35,5 +35,12 @@ module.exports = {
     hot: true,
     inline: true,
     watchContentBase: true
-  }
+  },
+  plugins: [
+    new workBoxWebpackPlugin.GenerateSW({
+      swDest: outputPath + "/service-worker.js",
+      clientsClaim: true,
+      skipWaiting: true
+    })
+  ]
 };
