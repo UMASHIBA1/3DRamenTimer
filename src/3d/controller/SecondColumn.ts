@@ -13,7 +13,7 @@ class SecondColumn {
   private _group: THREE.Group;
   private _canvas: Canvas | null;
   private _scene: THREE.Scene | null;
-  private _nowSecond: MinuteSecondType | null;
+  private _nowSecond: number | null;
   private _startSecond: MinuteSecondType | null;
   private _secondObjs: SecondText[];
   private _rotationSetting: RotationSetting;
@@ -70,6 +70,23 @@ class SecondColumn {
     };
   }
 
+  public init(canvas: Canvas, scene: THREE.Scene, nowSecond: MinuteSecondType) {
+    this._scene = scene;
+    this._canvas = canvas;
+    this._nowSecond = nowSecond;
+    this._startSecond = nowSecond;
+    for (let i = 0; i < 60; i++) {
+      const secondText = new SecondText(
+        i as MinuteSecondType,
+        this._nowSecond as MinuteSecondType
+      );
+      this._secondObjs.push(secondText);
+      this._group.add(secondText);
+    }
+    this._scene.add(this._group);
+    this._startSetTime();
+  }
+
   private _increaseOneSecond() {
     if (this._nowSecond != null) {
       this._rotationSetting = {
@@ -92,20 +109,6 @@ class SecondColumn {
     } else {
       console.log("MinuteColumnのnowSecondが設定されていません。");
     }
-  }
-
-  public init(canvas: Canvas, scene: THREE.Scene, nowSecond: MinuteSecondType) {
-    this._scene = scene;
-    this._canvas = canvas;
-    this._nowSecond = nowSecond;
-    this._startSecond = nowSecond;
-    for (let i = 0; i < 60; i++) {
-      const secondText = new SecondText(i as MinuteSecondType, this._nowSecond);
-      this._secondObjs.push(secondText);
-      this._group.add(secondText);
-    }
-    this._scene.add(this._group);
-    this._startSetTime();
   }
 
   public startCount() {
@@ -134,9 +137,11 @@ class SecondColumn {
     window.removeEventListener("touchstart", this._setTimeFuncMobile);
   }
 
-  public get nowSecond(): MinuteSecondType {
-    if (this._nowSecond !== null) {
-      const tmpSecond = this._nowSecond % 60;
+  public nowSecond(
+    _nowSecond: number | null = this._nowSecond
+  ): MinuteSecondType {
+    if (_nowSecond !== null) {
+      const tmpSecond = _nowSecond % 60;
       if (tmpSecond < 0) {
         return (60 + tmpSecond) as MinuteSecondType;
       }

@@ -40,7 +40,7 @@ class Timer {
   }
 
   public startCount() {
-    const firstSecond = this.secondColumn.nowSecond;
+    const firstSecond = this.secondColumn.nowSecond();
     this.minuteColumn.startCount(firstSecond);
     this.secondColumn.startCount();
     this.isStartedCount = true;
@@ -55,7 +55,7 @@ class Timer {
   public get isFinished() {
     if (
       this.isStartedCount &&
-      this.secondColumn.nowSecond === 0 &&
+      this.secondColumn.nowSecond() === 0 &&
       this.minuteColumn.nowMinute() === 0
     ) {
       return true;
