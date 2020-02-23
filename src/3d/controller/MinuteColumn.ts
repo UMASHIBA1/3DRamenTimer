@@ -13,7 +13,7 @@ class MinuteColumn {
   private _group: THREE.Group;
   private _canvas: Canvas | null;
   private _scene: THREE.Scene | null;
-  private _nowMinute: MinuteSecondType | null;
+  private _nowMinute: number | null;
   private _startMinute: MinuteSecondType | null;
   private _minuteObjs: MinuteText[];
   private _rotationSetting: RotationSetting;
@@ -78,7 +78,13 @@ class MinuteColumn {
     this._nowMinute = nowMinute;
     this._startMinute = nowMinute;
     for (let i = 0; i < 60; i++) {
-      const minuteText = new MinuteText(i as MinuteSecondType, this._nowMinute);
+      const minuteText = new MinuteText(
+        i as MinuteSecondType,
+        this._nowMinute as MinuteSecondType
+      );
+      if (i === nowMinute) {
+        minuteText.changeMaterialColorToRed();
+      }
       this._minuteObjs.push(minuteText);
       this._group.add(minuteText);
     }
@@ -88,6 +94,10 @@ class MinuteColumn {
 
   private _increaseOneMinute() {
     if (this._nowMinute != null) {
+      this._minuteObjs[this.nowMinute()].changeMaterialColorToWhite();
+      this._minuteObjs[
+        this.nowMinute(this._nowMinute + 1)
+      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "down"
@@ -100,6 +110,10 @@ class MinuteColumn {
 
   private _decreaseOneMinute() {
     if (this._nowMinute != null) {
+      this._minuteObjs[this.nowMinute()].changeMaterialColorToWhite();
+      this._minuteObjs[
+        this.nowMinute(this._nowMinute - 1)
+      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "up"
@@ -148,7 +162,7 @@ class MinuteColumn {
 
   // this._nowMinuteは-69とか102とかの値になっているから%60して時間としての数字を算出する
   public nowMinute(
-    _nowMinute: MinuteSecondType | null = this._nowMinute
+    _nowMinute: number | null = this._nowMinute
   ): MinuteSecondType {
     if (_nowMinute !== null) {
       const tmpMinute = _nowMinute % 60;
