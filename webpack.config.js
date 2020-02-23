@@ -1,6 +1,7 @@
 const path = require("path");
 const workBoxWebpackPlugin = require("workbox-webpack-plugin");
 const outputPath = path.resolve(__dirname, "public");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // []webpackを使いたかったらyarn buildでいける
 module.exports = {
@@ -23,6 +24,10 @@ module.exports = {
       {
         test: /\.png/,
         use: ["file-loader"]
+      },
+      {
+        test: /\.html/,
+        use: ["html-loader"]
       }
     ]
   },
@@ -37,6 +42,9 @@ module.exports = {
     watchContentBase: true
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/html/index.html"
+    }),
     new workBoxWebpackPlugin.GenerateSW({
       swDest: outputPath + "/service-worker.js",
       clientsClaim: true,
