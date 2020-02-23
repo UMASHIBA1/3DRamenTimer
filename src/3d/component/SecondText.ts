@@ -24,6 +24,14 @@ class SecondText extends THREE.Mesh {
     this.position.z = positionZ;
     this.rotation.x = rotationX;
   }
+
+  public changeMaterialColorToRed() {
+    this.material = new THREE.MeshToonMaterial({ color: "#FF0000" });
+  }
+
+  public changeMaterialColorToWhite() {
+    this.material = new THREE.MeshToonMaterial({ color: "#FAF4EC" });
+  }
 }
 
 export default SecondText;
