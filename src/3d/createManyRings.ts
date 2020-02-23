@@ -19,10 +19,6 @@ export default (scene: THREE.Scene) => {
   multiRing4.setPositionXY(-300, 100);
   multiRings.push(multiRing4);
 
-  const multiRing5 = new MultiRing(50, 4, 14, 6);
-  multiRing5.setPositionXY(-60, -100);
-  multiRings.push(multiRing5);
-
   const multiRing6 = new MultiRing(10, 2, 8, 3, 1.1);
   multiRing6.setPositionXY(-70, 100);
   multiRings.push(multiRing6);
@@ -30,10 +26,6 @@ export default (scene: THREE.Scene) => {
   const multiRing7 = new MultiRing(0.5, 1, 0, 1, 20);
   multiRing7.setPositionXY(80, 120);
   multiRings.push(multiRing7);
-
-  const multiRing8 = new MultiRing(26, 3, 13, 5, 0.8);
-  multiRing8.setPositionXY(30, 60);
-  multiRings.push(multiRing8);
 
   const multiRing9 = new MultiRing(1, 1, 0, 1, 20);
   multiRing9.setPositionXY(-170, -80);
