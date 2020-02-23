@@ -82,9 +82,6 @@ class MinuteColumn {
         i as MinuteSecondType,
         this._nowMinute as MinuteSecondType
       );
-      if (i === nowMinute) {
-        minuteText.changeMaterialColorToRed();
-      }
       this._minuteObjs.push(minuteText);
       this._group.add(minuteText);
     }
@@ -94,10 +91,6 @@ class MinuteColumn {
 
   private _increaseOneMinute() {
     if (this._nowMinute != null) {
-      this._minuteObjs[this.nowMinute()].changeMaterialColorToWhite();
-      this._minuteObjs[
-        this.nowMinute(this._nowMinute + 1)
-      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "down"
@@ -110,10 +103,6 @@ class MinuteColumn {
 
   private _decreaseOneMinute() {
     if (this._nowMinute != null) {
-      this._minuteObjs[this.nowMinute()].changeMaterialColorToWhite();
-      this._minuteObjs[
-        this.nowMinute(this._nowMinute - 1)
-      ].changeMaterialColorToRed();
       this._rotationSetting = {
         rotationFlag: true,
         direction: "up"
