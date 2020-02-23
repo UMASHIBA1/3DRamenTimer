@@ -10,7 +10,7 @@ class ColonText extends THREE.Mesh {
       size: 20,
       height: 5
     });
-    const material = new THREE.MeshToonMaterial({ color: "#FAF4EC" });
+    const material = new THREE.MeshToonMaterial({ color: "#FF0000" });
     super(geometry, material);
     const { positionY, positionZ, rotationX } = calcTextLocation(0, 0);
     this.position.x = 0;
