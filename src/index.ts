@@ -6,6 +6,7 @@ import Canvas from "./Canvas";
 import createManyRings from "./3d/createManyRings";
 import TimerButtonsFinishAnimationController from "./3d/controller/TimerButtonsFinishAnimationController";
 import MyCamera from "./3d/MyCamera";
+import createFog from "./3d/createFog";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = new Canvas();
@@ -14,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const scene = createScene();
   const light = createLight();
   const multiRings = createManyRings(scene);
+
+  scene.fog = createFog();
 
   scene.add(light);
 
