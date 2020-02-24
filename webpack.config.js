@@ -1,7 +1,7 @@
 const path = require("path");
 const workBoxWebpackPlugin = require("workbox-webpack-plugin");
 const outputPath = path.resolve(__dirname, "public");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // []webpackを使いたかったらyarn buildでいける
 module.exports = {
@@ -12,22 +12,28 @@ module.exports = {
     path: `${outputPath}`
   },
   module: {
-    rules: [{
-        test: /\.ts/,
+    rules: [
+      {
+        test: /\.ts$/i,
         use: "ts-loader",
         exclude: /node_modules/
       },
       {
-        test: /\.scss/,
+        test: /\.scss$/i,
         use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
-        test: /\.png/,
-        use: ["file-loader"]
+        test: /\.png$/i,
+        loader: "file-loader"
       },
       {
-        test: /\.html/,
-        use: ["html-loader"]
+        test: /\.html$/i,
+        loader: "html-loader",
+        options: {
+          interpolate: true,
+          attributes: true,
+          minimize: true
+        }
       }
     ]
   },
