@@ -13,7 +13,7 @@ https://3d-ramen-timer.umashiba.dev/
 ## 🔒ライセンス: License
 MIT
 
-## 使用技術: Technology
+## 💻使用技術: Technology
 - Typescript
 - Three.js
 - webpack
