@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="web 3D ramen timer" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>ThreeJSRamenTimer</title>
-    <link
-      rel="shortcut icon"
-      href="${require(`../images/favicon.png`).default}"
-      type="image/x-icon"
-    />
-    <link rel="manifest" href="manifest.json" />
-    <!-- CODELAB: Add iOS meta tags and icons -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="3D Ramen Timer" />
-    <link
-      rel="apple-touch-icon"
-      href="${require(`../images/icon_192.png`).default}"
-    />
-    <meta name="theme-color" content="#FF0000" />
-  </head>
 
-  <body>
-    <main>
-      <canvas id="canvas"></canvas>
-    </main>
-  </body>
-  <!-- <script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="web 3D ramen timer" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>ThreeJSRamenTimer</title>
+  <link rel="shortcut icon" href="${require(`../images/favicon.png`).default}" type="image/x-icon" />
+  <!-- <link rel="manifest" href="manifest.json" /> -->
+  <!-- CODELAB: Add iOS meta tags and icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="3D Ramen Timer" />
+  <link rel="apple-touch-icon" href="${require(`../images/icon_192.png`).default}" />
+</head>
+
+<body>
+  <main>
+    <canvas id="canvas"></canvas>
+  </main>
+</body>
+<script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/service-worker.js").then(reg => {
@@ -36,5 +29,6 @@
       });
     });
   }
-</script> -->
+</script>
+
 </html>
