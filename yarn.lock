@@ -6368,10 +6368,10 @@ three@*:
   resolved "https://registry.yarnpkg.com/three/-/three-0.116.1.tgz#a393f7a81fdc3e2fbf57ded5ba47dc5bd3678ce0"
   integrity sha512-l2JCMiA/lVZAuSrLWRYMalvpR+0j8hbIhCpfs4V6JFnw2+JQEQJ5HltNpfFr+9TDpQts1BhtcISehWf/xBGPvQ==
 
-three@^0.112.1:
-  version "0.112.1"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.112.1.tgz#f8d8f4d0f8e5f753dac6260491b8209457fdc131"
-  integrity sha512-8I0O74hiYtKl3LgDNcPJbBGOlpekbcJ6fJnImmW3mFdeUFJ2H9Y3/UuUSW2sBdjrIlCM0gvOkaTEFlofO900TQ==
+three@^0.117.0:
+  version "0.117.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.117.0.tgz#43d834d86fa7e0a500e5d6a8a071953498b9a3e5"
+  integrity sha512-mZdFmxva8b/Tdcjh3zcFdyxhwPMJr8Gub9dIzZvisAwdOouxgCOcpjb0MHCxwZvmJTQFpEDGSHrMscxrkbwR9Q==
 
 through2@^2.0.0:
   version "2.0.5"
