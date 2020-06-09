@@ -10,46 +10,47 @@ module.exports = {
   entry: "./src/index.ts",
   output: {
     filename: "bundle.js",
-    path: `${outputPath}`
+    path: `${outputPath}`,
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.ts$/i,
         use: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.png$/i,
-        loader: "file-loader"
+        loader: "file-loader",
       },
       {
         test: /\.html$/i,
         loader: "html-loader",
         options: {
-          interpolate: true,
           attributes: true,
-          minimize: true
-        }
-      }
-    ]
+          minimize: true,
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js"],
   },
   devServer: {
     contentBase: `${outputPath}/`,
     open: true,
     hot: true,
     inline: true,
-    watchContentBase: true
+    watchContentBase: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/html/index.html"
+      template: "./src/html/index.html",
+      favicon: "./src/images/favicon.png",
     }),
     new WebpackPwaManifest({
       short_name: "3D Timer",
@@ -58,15 +59,17 @@ module.exports = {
       start_url: "index.html",
       background_color: "#202124",
       theme_color: "#FF0000",
-      icons: [{
-        src: path.resolve("src/images/icon_512.png"),
-        sizes: [96, 128, 192, 256, 384, 512],
-      }]
+      icons: [
+        {
+          src: path.resolve("src/images/icon_512.png"),
+          sizes: [96, 128, 192, 256, 384, 512],
+        },
+      ],
     }),
     new workBoxWebpackPlugin.GenerateSW({
       swDest: outputPath + "/service-worker.js",
       clientsClaim: true,
-      skipWaiting: true
-    })
-  ]
+      skipWaiting: true,
+    }),
+  ],
 };
