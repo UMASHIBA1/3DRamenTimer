@@ -50,6 +50,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/html/index.html",
+      favicon: "./src/images/favicon.png",
     }),
     new WebpackPwaManifest({
       short_name: "3D Timer",
