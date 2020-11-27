@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "css-loader": "3.5.3",
-    "file-loader": "6.0.0",
+    "file-loader": "6.2.0",
     "firebase-tools": "8.4.2",
     "html-loader": "1.1.0",
     "html-webpack-plugin": "^4.3.0",
